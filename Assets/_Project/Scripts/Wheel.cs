@@ -50,6 +50,7 @@ namespace WheelOfFortune.Wheel
                 _slices.Add(slice);
             }
         }
+        
         private void Spin()
         {
             if(_isSpinning)
@@ -58,17 +59,26 @@ namespace WheelOfFortune.Wheel
             _isSpinning = true;
             _spinButton.interactable = false;
 
-            float randomEndAngle = Random.Range(0f, 360f);
-            float total = _minSpinRounds * 360f + randomEndAngle;
+            int selectedIndex = Random.Range(0, _sliceCount);
 
-            _wheelBase.transform.DORotate(new Vector3(0f, 0f, -total), _spinDuration, RotateMode.FastBeyond360)
+            float anglePerSlice = 360f / _sliceCount;
+            float targetAngle = anglePerSlice * selectedIndex;
+            float total = _minSpinRounds * 360f + targetAngle;
+
+            _wheelAnchorRotor.localEulerAngles = Vector3.zero;
+            _wheelAnchorRotor.transform.DORotate(new Vector3(0f, 0f, -total), _spinDuration, RotateMode.FastBeyond360)
                 .SetEase(Ease.OutCubic)
                 .SetLink(gameObject)
-                .OnComplete(() =>
-                {
-                _isSpinning = false;
-                _spinButton.interactable = true; 
-                });
+                .OnComplete(() => OnSpinComplete(selectedIndex));
+        }
+
+        private void OnSpinComplete(int selectedIndex)
+        {
+            _isSpinning = false;
+            _spinButton.interactable = true; 
+
+            WheelSlice slice = _slices[selectedIndex];
+            Debug.Log($"[Wheel] Selected slice {selectedIndex} - icon: {slice.GetComponentInChildren<Image>().sprite?.name}");
         }
     }
 }
