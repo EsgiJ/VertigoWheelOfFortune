@@ -9,12 +9,12 @@ public class WheelSlice : MonoBehaviour
 
     public int Index { get; private set;}
 
-    public void Initialize(int index, Image image, int amount)
+    public void Initialize(int index, Sprite sprite, int amount)
     {
         Index = index;
-        
+
         if(_sliceImage != null)
-            _sliceImage.sprite = image.sprite;
+            _sliceImage.sprite = sprite;
         
         if(_sliceText != null)
             _sliceText.text = $"x{amount}";
