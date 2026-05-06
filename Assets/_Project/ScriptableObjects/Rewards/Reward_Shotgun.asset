@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
   m_Name: Reward_Shotgun
   m_EditorClassIdentifier: 
-  _displayName: 
-  _icon: {fileID: 0}
-  _baseAmount: 0
+  _displayName: Shotgun
+  _icon: {fileID: 2406621693580753259, guid: 2ccaf372b4187d1468202c0ee32b68a4, type: 3}
+  _baseAmount: 30

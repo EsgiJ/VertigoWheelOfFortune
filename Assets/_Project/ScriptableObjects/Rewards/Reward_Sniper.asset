@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
   m_Name: Reward_Sniper
   m_EditorClassIdentifier: 
-  _displayName: 
-  _icon: {fileID: 0}
-  _baseAmount: 0
+  _displayName: Sniper
+  _icon: {fileID: -2243273156050388040, guid: 6025c1418e045ba4f87df98201bba8dc, type: 3}
+  _baseAmount: 75

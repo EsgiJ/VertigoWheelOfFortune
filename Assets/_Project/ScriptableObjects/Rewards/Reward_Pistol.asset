@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _displayName: Pistol
   _icon: {fileID: 95983631781727552, guid: 1832bc277d4c8a44aa0a46fd25f2d0d7, type: 3}
-  _baseAmount: 0
+  _baseAmount: 25

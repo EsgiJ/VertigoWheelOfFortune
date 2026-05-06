@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
   m_Name: Reward_SMG
   m_EditorClassIdentifier: 
-  _displayName: 
-  _icon: {fileID: 0}
-  _baseAmount: 0
+  _displayName: SMG
+  _icon: {fileID: 4302927716473386306, guid: 90a97a42203704941b1d46dc30d0383d, type: 3}
+  _baseAmount: 40
