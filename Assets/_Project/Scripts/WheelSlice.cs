@@ -1,16 +1,22 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WheelSlice : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Image _sliceImage;
+    [SerializeField] private TMP_Text _sliceText;
 
-    // Update is called once per frame
-    void Update()
+    public int Index { get; private set;}
+
+    public void Initialize(int index, Image image, int amount)
     {
+        Index = index;
         
+        if(_sliceImage != null)
+            _sliceImage.sprite = image.sprite;
+        
+        if(_sliceText != null)
+            _sliceText.text = $"x{amount}";
     }
 }
