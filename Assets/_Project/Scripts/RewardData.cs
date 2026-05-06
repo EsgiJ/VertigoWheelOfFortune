@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = = "RewardData", menuName = "WheelOfFortune/RewardData")]
+[CreateAssetMenu(fileName = "RewardData", menuName = "WheelOfFortune/RewardData")]
 public class RewardData : ScriptableObject
 {
     [SerializeField] private string _displayName;
