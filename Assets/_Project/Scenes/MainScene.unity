@@ -375,20 +375,19 @@ MonoBehaviour:
   _wheelAnchorRotor: {fileID: 1824803506}
   _slicePrefab: {fileID: 2836495505079949842, guid: 0271e15129891144e95736862aa5d77a, type: 3}
   _spinButton: {fileID: 20214850}
-  _icons:
-  - {fileID: -1109620717404360278, guid: b8fb89469dd68cf4f8927e158065d473, type: 3}
-  - {fileID: -5733527284831398832, guid: 3f99b70d14d6edd48b5327d1a0dc396f, type: 3}
-  - {fileID: -6860072587592751284, guid: b4d91e16879546241b10e2229684e67a, type: 3}
-  - {fileID: -4939823803957887640, guid: 81b64900aa29d4340964aa30b6d8fe01, type: 3}
-  - {fileID: -4939823803957887640, guid: 81b64900aa29d4340964aa30b6d8fe01, type: 3}
-  - {fileID: -2733076883953118537, guid: f08631d91a82a74489ff5740bc9947dc, type: 3}
-  - {fileID: -4654250119808573944, guid: a4d061964f20773419b0e12f6ecdb71f, type: 3}
-  - {fileID: 952800183794916973, guid: d92a9e12411d7904da6a2eba6394dd40, type: 3}
+  _sliceRewards:
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 3298cbe5621ee9248970276b64caa96b, type: 2}
+  - {fileID: 11400000, guid: c273c556042d7c9499771d0261bc086d, type: 2}
+  - {fileID: 11400000, guid: 26d61ab600128884c8839a251ffe122b, type: 2}
+  - {fileID: 11400000, guid: a335a1d9389ae8b41823434ee3bdd3cc, type: 2}
+  - {fileID: 11400000, guid: c6680ff2938040a4c91da50310cbaa0c, type: 2}
+  - {fileID: 11400000, guid: fcbeb2c8887f2ca4296d2c282ccd7b18, type: 2}
+  - {fileID: 11400000, guid: a677a5ac6ea0c69429963eab5a62b3d3, type: 2}
   _sliceCount: 8
   _sliceRadius: 140
   _spinDuration: 4
   _minSpinRounds: 3
-  _amounts: 010000000a00000064000000e8030000d0070000b80b00008813000010270000
 --- !u!1 &679993613
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,13 +11,12 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private RectTransform _wheelAnchorRotor;
         [SerializeField] private WheelSlice _slicePrefab;
         [SerializeField] private Button _spinButton;
-        [SerializeField] private Sprite[] _icons;
+        [SerializeField] private RewardData[] _sliceRewards;
 
         [SerializeField] private int _sliceCount = 8;
         [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
         [SerializeField] private float _spinDuration = 4f;
         [SerializeField] private int _minSpinRounds= 3;
-        [SerializeField] private int[] _amounts;
 
         private List<WheelSlice> _slices = new List<WheelSlice>();
         private bool _isSpinning = false;
@@ -26,6 +25,8 @@ namespace WheelOfFortune.Wheel
         {
             BuildSlices();
             _spinButton.onClick.AddListener(Spin);
+
+            _sliceRewards = new RewardData[_sliceCount];
         }
         
         private void BuildSlices()
@@ -43,9 +44,9 @@ namespace WheelOfFortune.Wheel
                 RectTransform rectTransform = slice.transform as RectTransform;
                 rectTransform.anchoredPosition = new Vector2(Mathf.Cos(rad) * _sliceRadius, Mathf.Sin(rad) * _sliceRadius);
 
-                Sprite icon = _icons[i];
-                int amount = _amounts[i];
-                slice.Initialize(i, icon, amount);
+                RewardData reward = _sliceRewards[i];
+                int amount = reward.BaseAmount;
+                slice.Initialize(i, reward, amount);
 
                 _slices.Add(slice);
             }
@@ -78,7 +79,7 @@ namespace WheelOfFortune.Wheel
             _spinButton.interactable = true; 
 
             WheelSlice slice = _slices[selectedIndex];
-            Debug.Log($"[Wheel] Selected slice {selectedIndex} - icon: {slice.GetComponentInChildren<Image>().sprite?.name}");
+            Debug.Log($"[Wheel] Selected slice {selectedIndex} - icon: {slice.Reward?.DisplayName} x{slice.Amount}");
         }
     }
 }
