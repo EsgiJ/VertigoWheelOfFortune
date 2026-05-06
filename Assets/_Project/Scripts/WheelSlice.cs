@@ -2,24 +2,27 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WheelSlice : MonoBehaviour
+namespace WheelOfFortune.Wheel
 {
-    [SerializeField] private Image _sliceImage;
-    [SerializeField] private TMP_Text _sliceText;
-
-    public int Index { get; private set; }
-    public RewardData Reward { get; private set; }
-    public int Amount { get; private set; }
-
-    public void Initialize(int index, RewardData reward, int amount)
+    public class WheelSlice : MonoBehaviour
     {
-        Index = index;
-        Reward = reward;
-        Amount = amount;
-        if(_sliceImage != null)
-            _sliceImage.sprite = reward.Icon;
-        
-        if(_sliceText != null)
-            _sliceText.text = $"x{amount}";
+        [SerializeField] private Image _sliceImage;
+        [SerializeField] private TMP_Text _sliceText;
+
+        public int Index { get; private set; }
+        public RewardData Reward { get; private set; }
+        public int Amount { get; private set; }
+
+        public void Initialize(int index, RewardData reward, int amount)
+        {
+            Index = index;
+            Reward = reward;
+            Amount = amount;
+            if(_sliceImage != null)
+                _sliceImage.sprite = reward.Icon;
+            
+            if(_sliceText != null)
+                _sliceText.text = $"x{amount}";
+        }
     }
 }
