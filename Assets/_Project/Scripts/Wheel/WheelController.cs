@@ -4,6 +4,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 
 using WheelOfFortune.Reward;
+using WheelOfFortune.Zone;
 
 namespace WheelOfFortune.Wheel
 {
@@ -14,17 +15,24 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private RectTransform _wheelAnchorRotor;
         [SerializeField] private WheelSlice _slicePrefab;
         [SerializeField] private Button _spinButton;
-        [SerializeField] private RewardData[] _sliceRewards;
         [SerializeField] private RewardBag _rewardBag;
-
+        [SerializeField] private ZoneController _zoneController;
+        
         [Header("Config")]
         [SerializeField] private int _sliceCount = 8;
         [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
         [SerializeField] private float _spinDuration = 4f;
         [SerializeField] private int _minSpinRounds= 3;
 
+        [Header("Slices")]
+        [SerializeField] private RewardData[] _sliceRewards;
+
+        [Header("Bomb")]
+        [SerializeField] private Sprite _bombSprite;
+
         private List<WheelSlice> _slices = new List<WheelSlice>();
         private bool _isSpinning = false;
+        private int _bombSliceIndex = -1;
 
         void Awake()
         {
@@ -32,10 +40,36 @@ namespace WheelOfFortune.Wheel
             _spinButton.onClick.AddListener(Spin);
 
             _sliceRewards = new RewardData[_sliceCount];
+
+            _zoneController.OnZoneChanged += HandleZoneChanged;
         }
         
+        void OnDestroy()
+        {
+            _spinButton.onClick.RemoveListener(Spin);
+            _zoneController.OnZoneChanged -= HandleZoneChanged;
+        }
+
+        private void HandleZoneChanged(int zone, ZoneType type)
+        {
+            BuildSlices(); 
+        }
+
         private void BuildSlices()
         {
+            foreach(var slice in _slices)
+            {
+                if(slice != null)
+                {
+                    Destroy(slice.gameObject);
+                }
+            }
+
+            _slices.Clear();
+
+            bool includeBomb = _zoneController.CurrentZoneType == ZoneType.Normal;
+            _bombSliceIndex = includeBomb ? Random.Range(0, _sliceCount) : -1;
+
             float anglePerSlice = 360f / _sliceCount;
 
             for(int i = 0; i < _sliceCount; i++)
@@ -49,9 +83,17 @@ namespace WheelOfFortune.Wheel
                 RectTransform rectTransform = slice.transform as RectTransform;
                 rectTransform.anchoredPosition = new Vector2(Mathf.Cos(rad) * _sliceRadius, Mathf.Sin(rad) * _sliceRadius);
                 rectTransform.localRotation = Quaternion.Euler(0, 0, angle);
-                RewardData reward = _sliceRewards[i];
-                int amount = reward.BaseAmount;
-                slice.Initialize(i, reward, amount);
+
+                if(i == _bombSliceIndex)
+                {
+                    slice.InitializeAsBomb(i, _bombSprite);
+                }
+                else
+                {
+                    RewardData reward = _sliceRewards[i];
+                    int amount = reward.BaseAmount;
+                    slice.Initialize(i, reward, amount);
+                }
 
                 _slices.Add(slice);
             }
@@ -84,13 +126,23 @@ namespace WheelOfFortune.Wheel
             _spinButton.interactable = true; 
 
             WheelSlice slice = _slices[selectedIndex];
+
+            if (slice.IsBomb)
+            {
+                Debug.Log($"[Wheel] Bomb hit! selected slice {selectedIndex}, clearing rewards");
+                _rewardBag.ClearRewards();
+                _zoneController.ResetToStart(); 
+                return;
+            }
+
             Debug.Log($"[Wheel] Selected slice {selectedIndex} - icon: {slice.Reward?.DisplayName} x{slice.Amount}");
             
             if(slice != null && slice.Amount > 0)
             {
-            _rewardBag.AddReward(slice.Reward, slice.Amount);
-                
+                _rewardBag.AddReward(slice.Reward, slice.Amount);
             }
+
+            _zoneController.Advance();
         }
     }
 }
