@@ -48,7 +48,7 @@ namespace WheelOfFortune.Wheel
 
                 RectTransform rectTransform = slice.transform as RectTransform;
                 rectTransform.anchoredPosition = new Vector2(Mathf.Cos(rad) * _sliceRadius, Mathf.Sin(rad) * _sliceRadius);
-
+                rectTransform.localRotation = Quaternion.Euler(0, 0, angle);
                 RewardData reward = _sliceRewards[i];
                 int amount = reward.BaseAmount;
                 slice.Initialize(i, reward, amount);
