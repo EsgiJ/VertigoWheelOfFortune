@@ -44,7 +44,7 @@ namespace WheelOfFortune.Wheel
         {
             BuildSlices();
         }
-        
+
         void OnDestroy()
         {
             _spinButton.onClick.RemoveListener(Spin);
@@ -77,7 +77,7 @@ namespace WheelOfFortune.Wheel
                 WheelSlice slice = Instantiate(_slicePrefab, _wheelAnchorRotor);
                 slice.name = $"Slice_ {i}";
 
-                float angle = -i * anglePerSlice;
+                float angle = i * anglePerSlice;
                 float rad = (angle + 90f) * Mathf.Deg2Rad; // +90 to start from top 
 
                 RectTransform rectTransform = slice.transform as RectTransform;
