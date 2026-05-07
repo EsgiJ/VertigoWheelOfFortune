@@ -10,10 +10,10 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private TMP_Text _sliceText;
 
         public int Index { get; private set; }
-        public RewardData Reward { get; private set; }
+        public Reward.RewardData Reward { get; private set; }
         public int Amount { get; private set; }
 
-        public void Initialize(int index, RewardData reward, int amount)
+        public void Initialize(int index, Reward.RewardData reward, int amount)
         {
             Index = index;
             Reward = reward;
