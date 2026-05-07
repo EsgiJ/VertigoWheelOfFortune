@@ -384,6 +384,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c6680ff2938040a4c91da50310cbaa0c, type: 2}
   - {fileID: 11400000, guid: fcbeb2c8887f2ca4296d2c282ccd7b18, type: 2}
   - {fileID: 11400000, guid: a677a5ac6ea0c69429963eab5a62b3d3, type: 2}
+  _rewardBag: {fileID: 0}
   _sliceCount: 8
   _sliceRadius: 140
   _spinDuration: 4
