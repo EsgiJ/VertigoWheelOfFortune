@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace WheelOfFortune.Wheel
 {
-    public class Wheel : MonoBehaviour
+    public class WheelController : MonoBehaviour
     {
         [SerializeField] private RectTransform _wheelBase;
         [SerializeField] private RectTransform _wheelAnchorRotor;
