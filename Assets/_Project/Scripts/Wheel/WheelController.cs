@@ -11,7 +11,7 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private RectTransform _wheelAnchorRotor;
         [SerializeField] private WheelSlice _slicePrefab;
         [SerializeField] private Button _spinButton;
-        [SerializeField] private RewardData[] _sliceRewards;
+        [SerializeField] private Reward.RewardData[] _sliceRewards;
 
         [SerializeField] private int _sliceCount = 8;
         [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
@@ -26,7 +26,7 @@ namespace WheelOfFortune.Wheel
             BuildSlices();
             _spinButton.onClick.AddListener(Spin);
 
-            _sliceRewards = new RewardData[_sliceCount];
+            _sliceRewards = new Reward.RewardData[_sliceCount];
         }
         
         private void BuildSlices()
@@ -44,7 +44,7 @@ namespace WheelOfFortune.Wheel
                 RectTransform rectTransform = slice.transform as RectTransform;
                 rectTransform.anchoredPosition = new Vector2(Mathf.Cos(rad) * _sliceRadius, Mathf.Sin(rad) * _sliceRadius);
 
-                RewardData reward = _sliceRewards[i];
+                Reward.RewardData reward = _sliceRewards[i];
                 int amount = reward.BaseAmount;
                 slice.Initialize(i, reward, amount);
 
