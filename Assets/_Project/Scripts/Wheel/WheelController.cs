@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
 
+using WheelOfFortune.Reward;
+
 namespace WheelOfFortune.Wheel
 {
     public class WheelController : MonoBehaviour
@@ -11,8 +13,7 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private RectTransform _wheelAnchorRotor;
         [SerializeField] private WheelSlice _slicePrefab;
         [SerializeField] private Button _spinButton;
-        [SerializeField] private Reward.RewardData[] _sliceRewards;
-
+        [SerializeField] private RewardData[] _sliceRewards;
         [SerializeField] private int _sliceCount = 8;
         [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
         [SerializeField] private float _spinDuration = 4f;
@@ -26,7 +27,7 @@ namespace WheelOfFortune.Wheel
             BuildSlices();
             _spinButton.onClick.AddListener(Spin);
 
-            _sliceRewards = new Reward.RewardData[_sliceCount];
+            _sliceRewards = new RewardData[_sliceCount];
         }
         
         private void BuildSlices()
@@ -44,8 +45,8 @@ namespace WheelOfFortune.Wheel
                 RectTransform rectTransform = slice.transform as RectTransform;
                 rectTransform.anchoredPosition = new Vector2(Mathf.Cos(rad) * _sliceRadius, Mathf.Sin(rad) * _sliceRadius);
 
-                Reward.RewardData reward = _sliceRewards[i];
-                int amount = reward.BaseAmount;
+                RewardData reward = _sliceRewards[i];
+                int amount = BaseAmount;
                 slice.Initialize(i, reward, amount);
 
                 _slices.Add(slice);
