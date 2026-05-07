@@ -36,12 +36,13 @@ namespace WheelOfFortune.Wheel
 
         void Awake()
         {
-            BuildSlices();
             _spinButton.onClick.AddListener(Spin);
-
-            _sliceRewards = new RewardData[_sliceCount];
-
             _zoneController.OnZoneChanged += HandleZoneChanged;
+        }
+        
+        void Start()
+        {
+            BuildSlices();
         }
         
         void OnDestroy()
@@ -64,7 +65,6 @@ namespace WheelOfFortune.Wheel
                     Destroy(slice.gameObject);
                 }
             }
-
             _slices.Clear();
 
             bool includeBomb = _zoneController.CurrentZoneType == ZoneType.Normal;
