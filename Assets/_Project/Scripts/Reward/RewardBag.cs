@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +8,9 @@ namespace WheelOfFortune.Reward
     {
         private readonly List<CollectedReward> _collectedRewards = new List<CollectedReward>();
         public IReadOnlyList<CollectedReward> CollectedRewards => _collectedRewards;
+
+        public event Action<CollectedReward> OnRewardAdded;
+        public event Action OnCleared;
 
         public void AddReward(RewardData rewardData, int amount)
         {
@@ -23,17 +26,20 @@ namespace WheelOfFortune.Reward
                         int newAmount = _collectedRewards[i].Amount + amount;
                         CollectedReward mergedReward = new CollectedReward(rewardData, newAmount);
                         _collectedRewards[i] = mergedReward;
+                        OnRewardAdded?.Invoke(mergedReward);
                         return;
                     }
                 }
             }
             CollectedReward newReward = new CollectedReward(rewardData, amount);
             _collectedRewards.Add(newReward);
+            OnRewardAdded?.Invoke(newReward);
         }
 
         public void ClearRewards()
         {
             _collectedRewards.Clear();
+            OnCleared?.Invoke();
         }
     }
 }
