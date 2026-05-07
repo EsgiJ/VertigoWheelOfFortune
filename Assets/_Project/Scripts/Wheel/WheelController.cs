@@ -9,11 +9,15 @@ namespace WheelOfFortune.Wheel
 {
     public class WheelController : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private RectTransform _wheelBase;
         [SerializeField] private RectTransform _wheelAnchorRotor;
         [SerializeField] private WheelSlice _slicePrefab;
         [SerializeField] private Button _spinButton;
         [SerializeField] private RewardData[] _sliceRewards;
+        [SerializeField] private RewardBag _rewardBag;
+
+        [Header("Config")]
         [SerializeField] private int _sliceCount = 8;
         [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
         [SerializeField] private float _spinDuration = 4f;
@@ -46,7 +50,7 @@ namespace WheelOfFortune.Wheel
                 rectTransform.anchoredPosition = new Vector2(Mathf.Cos(rad) * _sliceRadius, Mathf.Sin(rad) * _sliceRadius);
 
                 RewardData reward = _sliceRewards[i];
-                int amount = BaseAmount;
+                int amount = reward.BaseAmount;
                 slice.Initialize(i, reward, amount);
 
                 _slices.Add(slice);
@@ -81,6 +85,12 @@ namespace WheelOfFortune.Wheel
 
             WheelSlice slice = _slices[selectedIndex];
             Debug.Log($"[Wheel] Selected slice {selectedIndex} - icon: {slice.Reward?.DisplayName} x{slice.Amount}");
+            
+            if(slice != null && slice.Amount > 0)
+            {
+            _rewardBag.AddReward(slice.Reward, slice.Amount);
+                
+            }
         }
     }
 }
