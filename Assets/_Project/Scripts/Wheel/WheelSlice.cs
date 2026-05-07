@@ -21,7 +21,7 @@ namespace WheelOfFortune.Wheel
             Reward = reward;
             Amount = amount;
             if(_sliceImage != null)
-                _sliceImage.sprite = Icon;
+                _sliceImage.sprite = reward.Icon;
             
             if(_sliceText != null)
                 _sliceText.text = $"x{amount}";
