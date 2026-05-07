@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace WheelOfFortune.Reward
 {
     public readonly struct CollectedReward
