@@ -9,7 +9,7 @@ namespace WheelOfFortune.Wheel
     public class WheelSlice : MonoBehaviour
     {
         [SerializeField] private Image _sliceImage;
-        [SerializeField] private TMP_Text _sliceText;
+        [SerializeField] private TMP_Text _sliceTextAmount;
 
         public int Index { get; private set; }
         public RewardData Reward { get; private set; }
@@ -23,8 +23,8 @@ namespace WheelOfFortune.Wheel
             if(_sliceImage != null)
                 _sliceImage.sprite = reward.Icon;
             
-            if(_sliceText != null)
-                _sliceText.text = $"x{amount}";
+            if(_sliceTextAmount != null)
+                _sliceTextAmount.text = $"x{amount}";
         }
     }
 }
