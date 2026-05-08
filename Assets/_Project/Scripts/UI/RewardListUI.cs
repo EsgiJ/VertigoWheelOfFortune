@@ -44,14 +44,15 @@ namespace WheelOfFortune.UI
 
         private void HandleCleared()
         {
-            foreach(var kv in _views)
+            var viewsSnapshot = new List<RewardItemView>(_views.Values);
+            _views.Clear();
+            
+            foreach(var view in viewsSnapshot)
             {
-                if(kv.Value != null)
+                if(view != null)
                 {
-                    Destroy(kv.Value.gameObject);
+                    Destroy(view .gameObject);
                 }
-
-                _views.Clear();
 
                 // have to destroy non-stackable views manually
                 for (int i = _uiAnchorItemsRoot.childCount - 1; i >= 0; i--)

@@ -40,6 +40,7 @@ namespace WheelOfFortune.Wheel
         {
             _spinButton.onClick.AddListener(Spin);
             _zoneController.OnZoneChanged += HandleZoneChanged;
+            _zoneController.OnPlayerCashedOut += HandleCashout;
         }
         
         void Start()
@@ -51,6 +52,7 @@ namespace WheelOfFortune.Wheel
         {
             _spinButton.onClick.RemoveListener(Spin);
             _zoneController.OnZoneChanged -= HandleZoneChanged;
+            _zoneController.OnPlayerCashedOut -= HandleCashout;
         }
 
         private void HandleZoneChanged(int zone, ZoneType type)
@@ -131,9 +133,7 @@ namespace WheelOfFortune.Wheel
 
             if (slice.IsBomb)
             {
-                Debug.Log($"[Wheel] Bomb hit! selected slice {selectedIndex}, clearing rewards");
-                _rewardBag.ClearRewards();
-                _zoneController.Bomb(); 
+                OnBombHit();
                 return;
             }
 
@@ -145,6 +145,19 @@ namespace WheelOfFortune.Wheel
             }
 
             _zoneController.Advance();
+        }
+
+        private void OnBombHit()
+        {
+            Debug.Log($"[Wheel] Bomb hit! Clearing rewards");
+            _rewardBag.ClearRewards();
+            _zoneController.Bomb(); 
+        }
+
+        private void HandleCashout()
+        {
+            Debug.Log($"[Wheel] Cashout triggered! Clearing rewards");
+            _rewardBag.ClearRewards();
         }
     }
 }
