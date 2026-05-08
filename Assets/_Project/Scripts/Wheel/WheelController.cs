@@ -34,6 +34,8 @@ namespace WheelOfFortune.Wheel
         private bool _isSpinning = false;
         private int _bombSliceIndex = -1;
 
+        public bool CanLeave => !_isSpinning && _zoneController.CurrentZoneType.AllowsLeaving();
+
         void Awake()
         {
             _spinButton.onClick.AddListener(Spin);
@@ -67,7 +69,7 @@ namespace WheelOfFortune.Wheel
             }
             _slices.Clear();
 
-            bool includeBomb = _zoneController.CurrentZoneType == ZoneType.Normal;
+            bool includeBomb = _zoneController.CurrentZoneType.HasBomb();
             _bombSliceIndex = includeBomb ? Random.Range(0, _sliceCount) : -1;
 
             float anglePerSlice = 360f / _sliceCount;
@@ -131,7 +133,7 @@ namespace WheelOfFortune.Wheel
             {
                 Debug.Log($"[Wheel] Bomb hit! selected slice {selectedIndex}, clearing rewards");
                 _rewardBag.ClearRewards();
-                _zoneController.ResetToStart(); 
+                _zoneController.Bomb(); 
                 return;
             }
 

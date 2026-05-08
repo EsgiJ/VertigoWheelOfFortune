@@ -15,6 +15,8 @@ namespace WheelOfFortune.Zone
         public ZoneType CurrentZoneType => GetZoneType(CurrentZone);
 
         public event Action<int, ZoneType> OnZoneChanged;
+        public event Action OnPlayerCashedOut;
+        public event Action OnPlayerBombed;
 
         private void Awake()
         {
@@ -43,6 +45,18 @@ namespace WheelOfFortune.Zone
             if (zone % _superZoneInterval == 0) return ZoneType.Super;
             if (zone % _safeZoneInterval == 0)  return ZoneType.Safe;
             return ZoneType.Normal;
+        }
+
+        public void Cashout()
+        {
+            OnPlayerCashedOut?.Invoke();   
+            ResetToStart();                 
+        }
+
+        public void Bomb()
+        {
+            OnPlayerBombed?.Invoke();
+            ResetToStart();
         }
     }
 }
