@@ -7,6 +7,7 @@ namespace WheelOfFortune.UI
 {
     public class ZoneLabelUI : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private ZoneController _zoneController;
         [SerializeField] private TMP_Text _uiTextZoneValue;
 

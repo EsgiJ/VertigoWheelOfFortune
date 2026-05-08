@@ -6,7 +6,8 @@ using UnityEngine;
 namespace WheelOfFortune.Zone
 {
     public class ZoneController : MonoBehaviour
-    {
+    {   
+        [Header("Config")]
         [SerializeField, Min(1)] private int _startingZone = 1;
         [SerializeField, Min(1)] private int _safeZoneInterval = 5;
         [SerializeField, Min(1)] private int _superZoneInterval = 30;

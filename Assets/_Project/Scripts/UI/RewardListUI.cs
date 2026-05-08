@@ -7,6 +7,7 @@ namespace WheelOfFortune.UI
 {
     public class RewardListUI : MonoBehaviour
     {
+        [Header("Reeferences")]
         [SerializeField] private RewardBag _rewardBag;
         [SerializeField] private RectTransform _uiAnchorItemsRoot;
         [SerializeField] private RewardItemView _itemPrefab;

@@ -9,6 +9,7 @@ namespace WheelOfFortune.UI
 {
     public class RewardItemView : MonoBehaviour
     {   
+        [Header("References")]
         [SerializeField] private Image _itemImage;
         [SerializeField] private TMP_Text _itemTextAmount;
 

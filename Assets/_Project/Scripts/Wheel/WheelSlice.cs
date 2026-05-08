@@ -8,6 +8,7 @@ namespace WheelOfFortune.Wheel
 {
     public class WheelSlice : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private Image _sliceImage;
         [SerializeField] private TMP_Text _sliceTextAmount;
 
