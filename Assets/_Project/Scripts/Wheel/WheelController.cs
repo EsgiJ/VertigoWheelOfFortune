@@ -39,11 +39,12 @@ namespace WheelOfFortune.Wheel
         void Awake()
         {
             _spinButton.onClick.AddListener(Spin);
-            
+
             _zoneController.OnZoneChanged += HandleZoneChanged;
             _zoneController.OnPlayerCashedOut += HandleCashout;
             _zoneController.OnPlayerGaveUp += HandleGiveUp;
             _zoneController.OnPlayerRevived += HandleRevive;
+            _zoneController.OnPlayerBombed += HandleBombed;
         }
         
         void Start()
@@ -59,11 +60,13 @@ namespace WheelOfFortune.Wheel
             _zoneController.OnPlayerCashedOut -= HandleCashout;
             _zoneController.OnPlayerGaveUp -= HandleGiveUp;
             _zoneController.OnPlayerRevived -= HandleRevive;
+            _zoneController.OnPlayerBombed -= HandleBombed;
         }
 
         private void HandleZoneChanged(int zone, ZoneType type)
         {
             BuildSlices(); 
+            _spinButton.interactable = true;
         }
 
         private void BuildSlices()
@@ -158,6 +161,11 @@ namespace WheelOfFortune.Wheel
             Debug.Log($"[Wheel] Bomb hit! Clearing rewards");
             _rewardBag.ClearRewards();
             _zoneController.Bomb(); 
+        }
+
+        private void HandleBombed()
+        {
+            _spinButton.interactable = false;
         }
 
         private void HandleCashout()
