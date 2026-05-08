@@ -59,7 +59,6 @@ namespace WheelOfFortune.Zone
         public void Bomb()
         {
             OnPlayerBombed?.Invoke();
-            ResetToStart();
         }
 
         public void GiveUp()
