@@ -37,4 +37,10 @@ public class CurrencyController : MonoBehaviour
 
         return false;
     }
+
+    public void AddCurrency(int amount)
+    {
+        Gold += amount;
+        OnCurrencyChanged?.Invoke(Gold);
+    }
 }

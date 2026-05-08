@@ -39,8 +39,11 @@ namespace WheelOfFortune.Wheel
         void Awake()
         {
             _spinButton.onClick.AddListener(Spin);
+            
             _zoneController.OnZoneChanged += HandleZoneChanged;
             _zoneController.OnPlayerCashedOut += HandleCashout;
+            _zoneController.OnPlayerGaveUp += HandleGiveUp;
+            _zoneController.OnPlayerRevived += HandleRevive;
         }
         
         void Start()
@@ -51,8 +54,11 @@ namespace WheelOfFortune.Wheel
         void OnDestroy()
         {
             _spinButton.onClick.RemoveListener(Spin);
+
             _zoneController.OnZoneChanged -= HandleZoneChanged;
             _zoneController.OnPlayerCashedOut -= HandleCashout;
+            _zoneController.OnPlayerGaveUp -= HandleGiveUp;
+            _zoneController.OnPlayerRevived -= HandleRevive;
         }
 
         private void HandleZoneChanged(int zone, ZoneType type)
@@ -158,6 +164,17 @@ namespace WheelOfFortune.Wheel
         {
             Debug.Log($"[Wheel] Cashout triggered! Clearing rewards");
             _rewardBag.ClearRewards();
+        }
+
+        private void HandleGiveUp()
+        {
+            Debug.Log($"[Wheel] Give Up triggered! Clearing rewards");
+            _rewardBag.ClearRewards();
+        }
+
+        private void HandleRevive()
+        {
+            Debug.Log($"[Wheel] Revive triggered! Clearing rewards");
         }
     }
 }

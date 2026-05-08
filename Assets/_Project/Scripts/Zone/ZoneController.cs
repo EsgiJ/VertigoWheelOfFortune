@@ -18,6 +18,8 @@ namespace WheelOfFortune.Zone
         public event Action<int, ZoneType> OnZoneChanged;
         public event Action OnPlayerCashedOut;
         public event Action OnPlayerBombed;
+        public event Action OnPlayerGaveUp;
+        public event Action OnPlayerRevived;
 
         private void Awake()
         {
@@ -58,6 +60,18 @@ namespace WheelOfFortune.Zone
         {
             OnPlayerBombed?.Invoke();
             ResetToStart();
+        }
+
+        public void GiveUp()
+        {
+            OnPlayerGaveUp?.Invoke();
+            ResetToStart();
+        }
+
+        public void Revive()
+        {
+            OnPlayerRevived?.Invoke();  
+            Advance();
         }
     }
 }
