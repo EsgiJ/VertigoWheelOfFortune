@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
-  m_Name: Reward_Sniper
+  m_Name: Reward_Pistol_Points
   m_EditorClassIdentifier: 
-  _displayName: Sniper
-  _icon: {fileID: -2243273156050388040, guid: 6025c1418e045ba4f87df98201bba8dc, type: 3}
-  _baseAmount: 75
+  _displayName: Pistol Points
+  _icon: {fileID: 95983631781727552, guid: 1832bc277d4c8a44aa0a46fd25f2d0d7, type: 3}
+  _baseAmount: 10
+  _isStackable: 1

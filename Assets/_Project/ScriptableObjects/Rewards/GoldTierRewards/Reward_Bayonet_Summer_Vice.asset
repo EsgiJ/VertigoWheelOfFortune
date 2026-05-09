@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
-  m_Name: Reward_Shotgun
+  m_Name: Reward_Bayonet_Summer_Vice
   m_EditorClassIdentifier: 
-  _displayName: Shotgun
-  _icon: {fileID: 2406621693580753259, guid: 2ccaf372b4187d1468202c0ee32b68a4, type: 3}
-  _baseAmount: 30
+  _displayName: Bayonet Summer Vice
+  _icon: {fileID: -8530197202772083711, guid: 9b2f227b2ba6bd043a8af75fd915e6b0, type: 3}
+  _baseAmount: 1
+  _isStackable: 1

@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
-  m_Name: Reward_ChestBronze
+  m_Name: Reward_Bayonet_Easter_Time
   m_EditorClassIdentifier: 
-  _displayName: Bronze Chest
-  _icon: {fileID: -8731708261444831326, guid: 7c34df96bc19aca4bb3fff9ec75424e4, type: 3}
+  _displayName: Bayonet Easter Time
+  _icon: {fileID: 4456147647422321989, guid: c6ad4f5ec7fe15f409f40a9b192995d2, type: 3}
   _baseAmount: 1
+  _isStackable: 0

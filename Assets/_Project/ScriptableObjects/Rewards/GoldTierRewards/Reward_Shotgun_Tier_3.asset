@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
-  m_Name: Reward_Pistol
+  m_Name: Reward_Shotgun_Tier_3
   m_EditorClassIdentifier: 
-  _displayName: Pistol
-  _icon: {fileID: 95983631781727552, guid: 1832bc277d4c8a44aa0a46fd25f2d0d7, type: 3}
-  _baseAmount: 25
+  _displayName: Shotgun
+  _icon: {fileID: -1995457932549516950, guid: 1e93da9617419e148bdc620165d76cc6, type: 3}
+  _baseAmount: 1
+  _isStackable: 0

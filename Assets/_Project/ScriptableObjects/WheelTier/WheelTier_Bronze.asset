@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76cf93a5e50e2964eaf53110d8c2300b, type: 3}
+  m_Name: WheelTier_Bronze
+  m_EditorClassIdentifier: 
+  _displayLabel: BRONZE SPIN
+  _wheelBaseSprite: {fileID: -7416167051008218582, guid: abf1e9f32bbeb1741badb5601b2893ea, type: 3}
+  _wheelIndicatorSprite: {fileID: 5759410588988491854, guid: 528f2d494f64e45418fe4ca5e1d50b3d, type: 3}
+  _sliceTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _sliceRewards:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  _hasBomb: 1
+  _spinDuration: 4
+  _minSpinRounds: 3
