@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -11,21 +12,19 @@ namespace WheelOfFortune.Wheel
     public class WheelController : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private RectTransform _wheelBase;
         [SerializeField] private RectTransform _wheelAnchorRotor;
+        [SerializeField] private Image _wheelBaseImage;             
+        [SerializeField] private Image _wheelIndicatorImage;        
         [SerializeField] private WheelSlice _slicePrefab;
         [SerializeField] private Button _spinButton;
+        [SerializeField] private TMP_Text _spinLabelText;           
         [SerializeField] private RewardBag _rewardBag;
         [SerializeField] private ZoneController _zoneController;
         
         [Header("Config")]
-        [SerializeField] private int _sliceCount = 8;
+        [SerializeField] private ZoneTierResolver _tierResolver;
         [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
-        [SerializeField] private float _spinDuration = 4f;
-        [SerializeField] private int _minSpinRounds= 3;
-
-        [Header("Slices")]
-        [SerializeField] private RewardData[] _sliceRewards;
+        [SerializeField, Min(0f)] private float _rewardGrowthPerZone = 0.5f;
 
         [Header("Bomb")]
         [SerializeField] private Sprite _bombSprite;
@@ -33,6 +32,7 @@ namespace WheelOfFortune.Wheel
         private List<WheelSlice> _slices = new List<WheelSlice>();
         private bool _isSpinning = false;
         private int _bombSliceIndex = -1;
+        private WheelTierData _currentTier;
 
         public bool CanLeave => !_isSpinning && _zoneController.CurrentZoneType.AllowsLeaving();
 
@@ -49,7 +49,6 @@ namespace WheelOfFortune.Wheel
         
         void Start()
         {
-            BuildSlices();
         }
 
         void OnDestroy()
@@ -65,8 +64,24 @@ namespace WheelOfFortune.Wheel
 
         private void HandleZoneChanged(int zone, ZoneType type)
         {
+            _currentTier = _tierResolver.Resolve(type);
+            ApplyTierVisuals(_currentTier);
             BuildSlices(); 
             _spinButton.interactable = true;
+        }
+
+        private void ApplyTierVisuals(WheelTierData tier)
+        {
+            if (tier == null) return;
+
+            if (_wheelBaseImage != null && tier.WheelBaseSprite != null)
+                _wheelBaseImage.sprite = tier.WheelBaseSprite;
+
+            if (_wheelIndicatorImage != null && tier.WheelIndicatorSprite != null)
+                _wheelIndicatorImage.sprite = tier.WheelIndicatorSprite;
+
+            if (_spinLabelText != null)
+                _spinLabelText.text = tier.DisplayLabel;
         }
 
         private void BuildSlices()
@@ -80,12 +95,13 @@ namespace WheelOfFortune.Wheel
             }
             _slices.Clear();
 
+            int count = _currentTier.SliceCount;
             bool includeBomb = _zoneController.CurrentZoneType.HasBomb();
-            _bombSliceIndex = includeBomb ? Random.Range(0, _sliceCount) : -1;
+            _bombSliceIndex = includeBomb ? Random.Range(0, count) : -1;
 
-            float anglePerSlice = 360f / _sliceCount;
+            float anglePerSlice = 360f / count;
 
-            for(int i = 0; i < _sliceCount; i++)
+            for(int i = 0; i < count; i++)
             {
                 WheelSlice slice = Instantiate(_slicePrefab, _wheelAnchorRotor);
                 slice.name = $"Slice_ {i}";
@@ -103,15 +119,22 @@ namespace WheelOfFortune.Wheel
                 }
                 else
                 {
-                    RewardData reward = _sliceRewards[i];
-                    int amount = reward.BaseAmount;
-                    slice.Initialize(i, reward, amount);
+                    RewardData reward = _currentTier.SliceRewards[i];
+                    int amount = ScaleAmountForZone(reward != null ? reward.BaseAmount : 0, _zoneController.CurrentZone);
+                    slice.Initialize(i, reward, amount, _currentTier.SliceTextColor);
                 }
 
                 _slices.Add(slice);
             }
         }
         
+        private int ScaleAmountForZone(int baseAmount, int zone)
+        {
+            int z = Mathf.Max(1, zone);
+            float scaled = baseAmount * (1f + _rewardGrowthPerZone * (z - 1));
+            return Mathf.Max(1, Mathf.RoundToInt(scaled));
+        }
+
         private void Spin()
         {
             if(_isSpinning)
@@ -120,14 +143,14 @@ namespace WheelOfFortune.Wheel
             _isSpinning = true;
             _spinButton.interactable = false;
 
-            int selectedIndex = Random.Range(0, _sliceCount);
+            int selectedIndex = Random.Range(0, _currentTier.SliceCount);
 
-            float anglePerSlice = 360f / _sliceCount;
+            float anglePerSlice = 360f / _currentTier.SliceCount;
             float targetAngle = anglePerSlice * selectedIndex;
-            float total = _minSpinRounds * 360f + targetAngle;
+            float total = _currentTier.MinSpinRounds * 360f + targetAngle;
 
             _wheelAnchorRotor.localEulerAngles = Vector3.zero;
-            _wheelAnchorRotor.transform.DORotate(new Vector3(0f, 0f, -total), _spinDuration, RotateMode.FastBeyond360)
+            _wheelAnchorRotor.transform.DORotate(new Vector3(0f, 0f, -total), _currentTier.SpinDuration, RotateMode.FastBeyond360)
                 .SetEase(Ease.OutCubic)
                 .SetLink(gameObject)
                 .OnComplete(() => OnSpinComplete(selectedIndex));

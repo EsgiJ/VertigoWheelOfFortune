@@ -17,7 +17,7 @@ namespace WheelOfFortune.Wheel
         public int Amount { get; private set; }
         public bool IsBomb { get; private set; }
 
-        public void Initialize(int index, RewardData reward, int amount)
+        public void Initialize(int index, RewardData reward, int amount, Color textColor)
         {
             Index = index;
             Reward = reward;
@@ -27,8 +27,11 @@ namespace WheelOfFortune.Wheel
             if(_sliceImage != null)
                 _sliceImage.sprite = reward.Icon;
             
-            if(_sliceTextAmount != null)
+            if (_sliceTextAmount != null)
+            {
+                _sliceTextAmount.color = textColor;
                 _sliceTextAmount.text = $"x{amount}";
+            }
         }
 
         public void InitializeAsBomb(int index, Sprite bombSprite)

@@ -17,14 +17,14 @@ MonoBehaviour:
   _wheelIndicatorSprite: {fileID: 5759410588988491854, guid: 528f2d494f64e45418fe4ca5e1d50b3d, type: 3}
   _sliceTextColor: {r: 1, g: 1, b: 1, a: 1}
   _sliceRewards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
   _hasBomb: 1
   _spinDuration: 4
   _minSpinRounds: 3

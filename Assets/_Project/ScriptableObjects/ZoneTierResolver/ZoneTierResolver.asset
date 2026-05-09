@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: ZoneTierResolver
   m_EditorClassIdentifier: 
   _normalTier: {fileID: 11400000, guid: c071ee107a5104043b4df9213900646b, type: 2}
-  _safeTier: {fileID: 11400000, guid: 66b6fa1809a7d224e812b7db3fcdabc8, type: 2}
-  _superTier: {fileID: 11400000, guid: b5921191c6d60bd418a4951e726b0534, type: 2}
+  _safeTier: {fileID: 11400000, guid: b5921191c6d60bd418a4951e726b0534, type: 2}
+  _superTier: {fileID: 11400000, guid: 66b6fa1809a7d224e812b7db3fcdabc8, type: 2}
