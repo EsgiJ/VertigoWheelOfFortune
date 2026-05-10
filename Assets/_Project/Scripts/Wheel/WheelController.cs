@@ -182,7 +182,6 @@ namespace WheelOfFortune.Wheel
         private void OnBombHit()
         {
             Debug.Log($"[Wheel] Bomb hit! Clearing rewards");
-            _rewardBag.ClearRewards();
             _zoneController.Bomb(); 
         }
 
