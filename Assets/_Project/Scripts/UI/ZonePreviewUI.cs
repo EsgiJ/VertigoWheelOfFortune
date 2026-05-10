@@ -21,6 +21,23 @@ public class ZonePreviewUI : MonoBehaviour
         _zoneController.OnZoneChanged -= HandleZoneChanged;
     }
 
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (_uiTextSuperValue == null)
+        {
+            var t = transform.Find("ui_panel_zone_preview_super/ui_text_zone_label_value");
+            if (t != null) _uiTextSuperValue = t.GetComponent<TMP_Text>();
+        }
+
+        if (_uiTextSafeValue == null)
+        {
+            var t = transform.Find("ui_panel_zone_preview_safe/ui_text_zone_label_value");
+            if (t != null) _uiTextSafeValue = t.GetComponent<TMP_Text>();
+        }
+    }
+    #endif
+
     private void HandleZoneChanged(int currentZone, ZoneType _)
     {
         int nextSuper = NextMultipleOf(currentZone, _superInterval);

@@ -12,7 +12,7 @@ public class BombPanelUI : MonoBehaviour
     [SerializeField] private GameObject _panel;
     [SerializeField] private Button _reviveButton;
     [SerializeField] private Button _giveUpButton;
-    [SerializeField] private TMP_Text _uiReviveCostValue;
+    [SerializeField] private TMP_Text _uiTextReviveCostValue;
     [SerializeField] private ZoneController _zoneController;
     [SerializeField] private CurrencyController _currencyController;
 
@@ -38,6 +38,35 @@ public class BombPanelUI : MonoBehaviour
         _currencyController.OnCurrencyChanged -= HandleCurrencyChanged;
     }
 
+    #if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (_giveUpButton == null)
+        {
+            var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_giveup");
+            if (t != null) _giveUpButton = t.GetComponent<Button>();
+        }
+
+        if (_reviveButton == null)
+        {
+            var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive");
+            if (t != null) _reviveButton = t.GetComponent<Button>();
+        }
+
+        if (_uiTextReviveCostValue == null)
+        {
+            var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive/ui_text_revive_cost_value");
+            if (t != null) _uiTextReviveCostValue = t.GetComponent<TMP_Text>();
+        }
+
+        if (_panel == null)
+        {
+            var t = transform.Find("ui_panel_bomb_content");
+            if (t != null) _panel = t.gameObject;
+        }
+    }
+    #endif
+
     private void OnDestroy()
     {
         _giveUpButton.onClick.RemoveListener(OnGiveUpClicked);
@@ -58,8 +87,8 @@ public class BombPanelUI : MonoBehaviour
 
     private void UpdateReviveButtonState()
     {
-        if (_uiReviveCostValue != null)
-            _uiReviveCostValue.text = _reviveCost.ToString();
+        if (_uiTextReviveCostValue != null)
+            _uiTextReviveCostValue.text = _reviveCost.ToString();
 
         _reviveButton.interactable = _currencyController.CanAfford(_reviveCost);
     }

@@ -30,6 +30,17 @@ namespace WheelOfFortune.UI
             _zoneController.OnZoneChanged -= HandleZoneChanged;
         }
 
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_itemsRoot == null)
+            {
+                var t = transform.Find("ui_anchor_zone_items_root");
+                if (t != null) _itemsRoot = t as RectTransform;
+            }
+        }
+        #endif
+
         private void HandleZoneChanged(int currentZone, ZoneType currentType)
         {
             EnsureItemCount();

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2412045593309446084}
   - component: {fileID: 2412045593309446106}
   m_Layer: 5
-  m_Name: ui_text_zone_label
+  m_Name: ui_text_zone_label_value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,7 +448,7 @@ GameObject:
   - component: {fileID: 2412045595012661402}
   - component: {fileID: 2412045595012661403}
   m_Layer: 5
-  m_Name: ui_text_zone_label
+  m_Name: ui_text_zone_label_value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

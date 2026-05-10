@@ -62,6 +62,35 @@ namespace WheelOfFortune.Wheel
             _zoneController.OnPlayerBombed -= HandleBombed;
         }
 
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_spinButton == null)
+            {
+                var t = transform.Find("ui_button_spin");
+                if (t != null) _spinButton = t.GetComponent<Button>();
+            }
+
+            if (_wheelAnchorRotor == null)
+            {
+                var t = transform.Find("ui_anchor_rotor");
+                if (t != null) _wheelAnchorRotor = t as RectTransform;
+            }
+
+            if (_wheelBaseImage == null)
+            {
+                var t = transform.Find("ui_anchor_rotor/ui_image_wheel_base");
+                if (t != null) _wheelBaseImage = t.GetComponent<Image>();
+            }
+
+            if (_wheelIndicatorImage == null)
+            {
+                var t = transform.Find("ui_image_wheel_indicator");
+                if (t != null) _wheelIndicatorImage = t.GetComponent<Image>();
+            }
+        }
+        #endif
+
         private void HandleZoneChanged(int zone, ZoneType type)
         {
             _currentTier = _tierResolver.Resolve(type);

@@ -20,6 +20,14 @@ namespace WheelOfFortune.UI
             _currencyController.OnCurrencyChanged -= HandleGoldChanged;
         }
 
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_uiTextGoldValue == null)
+                _uiTextGoldValue = GetComponent<TMP_Text>();
+        }
+        #endif
+
         private void HandleGoldChanged(int gold)
         {
             if (_uiTextGoldValue != null)

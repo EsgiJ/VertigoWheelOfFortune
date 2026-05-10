@@ -26,6 +26,17 @@ namespace WheelOfFortune.UI
             _rewardBag.OnCleared -= HandleCleared;
         }
 
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_uiAnchorItemsRoot == null)
+            {
+                var t = transform.Find("ui_anchor_items_root");
+                if (t != null) _uiAnchorItemsRoot = t as RectTransform;
+            }
+        }
+        #endif
+
         private void HandleRewardAdded(CollectedReward reward)
         {
             if(reward.RewardData.IsStackable && _views.TryGetValue(reward.RewardData, out RewardItemView existing))

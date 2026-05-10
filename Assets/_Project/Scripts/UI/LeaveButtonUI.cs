@@ -26,6 +26,14 @@ namespace WheelOfFortune.UI
             _zoneController.OnZoneChanged -= HandleZoneChanged;
         }
 
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_button == null)
+                _button = GetComponent<Button>();
+        }
+        #endif
+
         private void OnDestroy()
         {
             _button.onClick.RemoveListener(OnLeaveButtonClicked);
