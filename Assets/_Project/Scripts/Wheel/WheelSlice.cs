@@ -47,5 +47,16 @@ namespace WheelOfFortune.Wheel
             if(_sliceTextAmount != null)
                 _sliceTextAmount.text = string.Empty;
         }
+
+        #if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_sliceTextAmount == null)
+            {
+                var t = transform.Find("ui_text_amount_value");
+                if (t != null) _sliceTextAmount = t.GetComponent<TMP_Text>();
+            }
+        }
+        #endif
     }
 }

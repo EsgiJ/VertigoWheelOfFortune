@@ -18,13 +18,13 @@ MonoBehaviour:
   _sliceTextColor: {r: 1, g: 1, b: 1, a: 1}
   _sliceRewards:
   - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
-  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
-  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
-  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
-  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
-  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
-  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
-  - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
+  - {fileID: 11400000, guid: c273c556042d7c9499771d0261bc086d, type: 2}
+  - {fileID: 11400000, guid: 26d61ab600128884c8839a251ffe122b, type: 2}
+  - {fileID: 11400000, guid: a335a1d9389ae8b41823434ee3bdd3cc, type: 2}
+  - {fileID: 11400000, guid: c007f1a2ce9e1b540a2cb648e874517b, type: 2}
+  - {fileID: 11400000, guid: 3298cbe5621ee9248970276b64caa96b, type: 2}
+  - {fileID: 11400000, guid: a87460ec39ba58e49b0791c8c5c49f06, type: 2}
+  - {fileID: 11400000, guid: 29a5a8daba31a5a46b6ef0cd0d8f4255, type: 2}
   _hasBomb: 1
   _spinDuration: 4
   _minSpinRounds: 3

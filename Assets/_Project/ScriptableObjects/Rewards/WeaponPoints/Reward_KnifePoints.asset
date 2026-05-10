@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40dd34902043cbc46af6a159298b20a1, type: 3}
+  m_Name: Reward_KnifePoints
+  m_EditorClassIdentifier: 
+  _displayName: Knife Points
+  _icon: {fileID: 1742066445721694904, guid: be48736d9cf0b4d488f46d23d8aef7f5, type: 3}
+  _baseAmount: 25
+  _isStackable: 1

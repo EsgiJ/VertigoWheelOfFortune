@@ -19,12 +19,12 @@ MonoBehaviour:
   _sliceRewards:
   - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
   - {fileID: 11400000, guid: c273c556042d7c9499771d0261bc086d, type: 2}
-  - {fileID: 11400000, guid: 2f6b74909266ecb44a0e78ba3e37104a, type: 2}
-  - {fileID: 11400000, guid: b251b72d3116c814dafbbc1afe67c444, type: 2}
-  - {fileID: 11400000, guid: fcbeb2c8887f2ca4296d2c282ccd7b18, type: 2}
+  - {fileID: 11400000, guid: a335a1d9389ae8b41823434ee3bdd3cc, type: 2}
   - {fileID: 11400000, guid: a677a5ac6ea0c69429963eab5a62b3d3, type: 2}
-  - {fileID: 11400000, guid: 3aff6e01392fd5a4ba43ef931b014b27, type: 2}
-  - {fileID: 11400000, guid: 26d61ab600128884c8839a251ffe122b, type: 2}
+  - {fileID: 11400000, guid: f4f989abe2ac56a46b78669be7fa6481, type: 2}
+  - {fileID: 11400000, guid: c4bae4b45000cf44fa62c1780c627aed, type: 2}
+  - {fileID: 11400000, guid: bf61e7da71925a949b1c1343258e53b1, type: 2}
+  - {fileID: 11400000, guid: fe3c08cbc03d9ac4282d800f4dab7220, type: 2}
   _hasBomb: 0
   _spinDuration: 5
   _minSpinRounds: 4
