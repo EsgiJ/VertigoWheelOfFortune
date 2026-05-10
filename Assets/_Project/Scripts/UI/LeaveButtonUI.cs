@@ -2,13 +2,16 @@ using UnityEngine;
 using UnityEngine.UI;
 
 using WheelOfFortune.Zone;
+using WheelOfFortune.Core;
 
 namespace WheelOfFortune.UI
 {
     public class LeaveButtonUI : MonoBehaviour
     {
-        [SerializeField] Button _button;
-        [SerializeField] ZoneController _zoneController;
+        [Header("References")]
+        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private Button _button;
+        [SerializeField] private ZoneController _zoneController;
 
         private void Awake()
         {
@@ -17,26 +20,25 @@ namespace WheelOfFortune.UI
 
         private void OnEnable()
         {
+            _gameManager.OnStateChanged += HandleStateChanged;
             _zoneController.OnZoneChanged += HandleZoneChanged;
             UpdateVisibility(_zoneController.CurrentZoneType);
         }
 
         private void OnDisable()
         {
+            _gameManager.OnStateChanged -= HandleStateChanged;
             _zoneController.OnZoneChanged -= HandleZoneChanged;
         }
-
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_button == null)
-                _button = GetComponent<Button>();
-        }
-        #endif
 
         private void OnDestroy()
         {
             _button.onClick.RemoveListener(OnLeaveButtonClicked);
+        }
+
+        private void HandleStateChanged(GameState state)
+        {
+            UpdateVisibility();
         }
 
         private void HandleZoneChanged(int zone, ZoneType type)
@@ -44,9 +46,19 @@ namespace WheelOfFortune.UI
             UpdateVisibility(type);
         }
 
+        private void UpdateVisibility()
+        {
+            bool canLeave = _gameManager.CurrentState == GameState.ReadyToSpin
+                        && _zoneController.CurrentZoneType.AllowsLeaving();
+
+            _button.interactable = canLeave;
+        }
+
         private void UpdateVisibility(ZoneType type)
         {
-            bool canLeave = type.AllowsLeaving();
+            bool canLeave = _gameManager.CurrentState == GameState.ReadyToSpin
+                        && _zoneController.CurrentZoneType.AllowsLeaving();
+
             _button.interactable = canLeave;
         }
 
@@ -57,5 +69,23 @@ namespace WheelOfFortune.UI
 
             _zoneController.Cashout();
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_gameManager == null)
+            {
+                _gameManager = FindObjectOfType<GameManager>(true);
+            }
+            if (_button == null)
+            {
+                _button = GetComponent<Button>();
+            }
+            if (_zoneController == null)
+            {
+                _zoneController = FindObjectOfType<ZoneController>(true);
+            }
+        }
+#endif
     }
 }

@@ -1,110 +1,125 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using WheelOfFortune.Core;
 using WheelOfFortune.Currency;
 using WheelOfFortune.Zone;
 
-public class BombPanelUI : MonoBehaviour
+namespace WheelOfFortune.UI
 {
-    [SerializeField] private GameObject _panel;
-    [SerializeField] private Button _reviveButton;
-    [SerializeField] private Button _giveUpButton;
-    [SerializeField] private TMP_Text _uiTextReviveCostValue;
-    [SerializeField] private ZoneController _zoneController;
-    [SerializeField] private CurrencyController _currencyController;
-
-    [SerializeField, Min(0)] private int _reviveCost = 25;
-
-    private void Awake()
+    public class BombPanelUI : MonoBehaviour
     {
-        _giveUpButton.onClick.AddListener(OnGiveUpClicked);
-        _reviveButton.onClick.AddListener(OnReviveClicked);
+        [Header("References")]
+        [SerializeField] private GameManager _gameManager;
+        [SerializeField] private GameObject _panel;
+        [SerializeField] private Button _reviveButton;
+        [SerializeField] private Button _giveUpButton;
+        [SerializeField] private TMP_Text _uiTextReviveCostValue;
+        [SerializeField] private ZoneController _zoneController;
+        [SerializeField] private CurrencyController _currencyController;
 
-        _panel.SetActive(false);
-    }
+        [SerializeField, Min(0)] private int _reviveCost = 25;
 
-    private void OnEnable()
-    {
-        _zoneController.OnPlayerBombed += HandleBombed;
-        _currencyController.OnCurrencyChanged += HandleCurrencyChanged;
-    }
-
-    private void OnDisable()
-    {
-        _zoneController.OnPlayerBombed -= HandleBombed;
-        _currencyController.OnCurrencyChanged -= HandleCurrencyChanged;
-    }
-
-    #if UNITY_EDITOR
-    private void OnValidate()
-    {
-        if (_giveUpButton == null)
+        private void Awake()
         {
-            var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_giveup");
-            if (t != null) _giveUpButton = t.GetComponent<Button>();
+            _giveUpButton.onClick.AddListener(OnGiveUpClicked);
+            _reviveButton.onClick.AddListener(OnReviveClicked);
+
+            _panel.SetActive(false);
         }
 
-        if (_reviveButton == null)
+        private void OnEnable()
         {
-            var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive");
-            if (t != null) _reviveButton = t.GetComponent<Button>();
+            _zoneController.OnPlayerBombed += HandleBombed;
+            _currencyController.OnCurrencyChanged += HandleCurrencyChanged;
         }
 
-        if (_uiTextReviveCostValue == null)
+        private void OnDisable()
         {
-            var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive/ui_text_revive_cost_value");
-            if (t != null) _uiTextReviveCostValue = t.GetComponent<TMP_Text>();
+            _zoneController.OnPlayerBombed -= HandleBombed;
+            _currencyController.OnCurrencyChanged -= HandleCurrencyChanged;
         }
 
-        if (_panel == null)
+        private void OnDestroy()
         {
-            var t = transform.Find("ui_panel_bomb_content");
-            if (t != null) _panel = t.gameObject;
+            _giveUpButton.onClick.RemoveListener(OnGiveUpClicked);
+            _reviveButton.onClick.RemoveListener(OnReviveClicked);
         }
-    }
-    #endif
 
-    private void OnDestroy()
-    {
-        _giveUpButton.onClick.RemoveListener(OnGiveUpClicked);
-        _reviveButton.onClick.RemoveListener(OnReviveClicked);
-    }
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_gameManager == null)
+                _gameManager = FindObjectOfType<GameManager>(true);
 
-    private void HandleBombed()
-    {
-        UpdateReviveButtonState();
-        _panel.SetActive(true);
-    }
+            if (_zoneController == null)
+                _zoneController = FindObjectOfType<ZoneController>(true);
 
-    private void HandleCurrencyChanged(int newGold)
-    {
-        if (_panel.activeSelf) 
+            if (_currencyController == null)
+                _currencyController = FindObjectOfType<CurrencyController>(true);
+
+            if (_giveUpButton == null)
+            {
+                var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_giveup");
+                if (t != null) _giveUpButton = t.GetComponent<Button>();
+            }
+
+            if (_reviveButton == null)
+            {
+                var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive");
+                if (t != null) _reviveButton = t.GetComponent<Button>();
+            }
+
+            if (_uiTextReviveCostValue == null)
+            {
+                var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive/ui_text_revive_cost_value");
+                if (t != null) _uiTextReviveCostValue = t.GetComponent<TMP_Text>();
+            }
+
+            if (_panel == null)
+            {
+                var t = transform.Find("ui_panel_bomb_content");
+                if (t != null) _panel = t.gameObject;
+            }
+        }
+#endif
+
+        private void HandleBombed()
+        {
             UpdateReviveButtonState();
-    }
+            _panel.SetActive(true);
+        }
 
-    private void UpdateReviveButtonState()
-    {
-        if (_uiTextReviveCostValue != null)
-            _uiTextReviveCostValue.text = _reviveCost.ToString();
+        private void HandleCurrencyChanged(int newGold)
+        {
+            if (_panel.activeSelf)
+                UpdateReviveButtonState();
+        }
 
-        _reviveButton.interactable = _currencyController.CanAfford(_reviveCost);
-    }
+        private void UpdateReviveButtonState()
+        {
+            if (_uiTextReviveCostValue != null)
+                _uiTextReviveCostValue.text = _reviveCost.ToString();
 
-    private void OnGiveUpClicked()
-    {
-        _panel.SetActive(false);
-        _zoneController.GiveUp();
-    }
+            _reviveButton.interactable = _currencyController.CanAfford(_reviveCost);
+        }
 
-    private void OnReviveClicked()
-    {
-        if (!_currencyController.TrySpend(_reviveCost)) 
-            return;
-            
-        _panel.SetActive(false);
-        _zoneController.Revive();
+        private void OnGiveUpClicked()
+        {
+            if (_gameManager.RequestGiveUp())
+                _panel.SetActive(false);
+        }
+
+        private void OnReviveClicked()
+        {
+            if (!_currencyController.CanAfford(_reviveCost))
+                return;
+
+            if (!_gameManager.RequestRevive())
+                return;
+
+            _currencyController.TrySpend(_reviveCost);
+            _panel.SetActive(false);
+        }
     }
 }

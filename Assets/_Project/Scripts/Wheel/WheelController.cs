@@ -3,15 +3,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
+using System;
 
 using WheelOfFortune.Reward;
 using WheelOfFortune.Zone;
-
+using WheelOfFortune.Core;
 namespace WheelOfFortune.Wheel
 {
     public class WheelController : MonoBehaviour
     {
         [Header("References")]
+        [SerializeField] private GameManager _gameManager;
         [SerializeField] private RectTransform _wheelAnchorRotor;
         [SerializeField] private Image _wheelBaseImage;             
         [SerializeField] private Image _wheelIndicatorImage;        
@@ -34,17 +36,22 @@ namespace WheelOfFortune.Wheel
         private int _bombSliceIndex = -1;
         private WheelTierData _currentTier;
 
+        public event Action OnSpinStarted;
+        public event Action OnSpinResolved;
+
         public bool CanLeave => !_isSpinning && _zoneController.CurrentZoneType.AllowsLeaving();
 
         void Awake()
         {
-            _spinButton.onClick.AddListener(Spin);
+            _spinButton.onClick.AddListener(OnSpinButtonClicked);
 
             _zoneController.OnZoneChanged += HandleZoneChanged;
             _zoneController.OnPlayerCashedOut += HandleCashout;
             _zoneController.OnPlayerGaveUp += HandleGiveUp;
             _zoneController.OnPlayerRevived += HandleRevive;
             _zoneController.OnPlayerBombed += HandleBombed;
+
+            _gameManager.OnStateChanged += HandleStateChanged;
         }
         
         void Start()
@@ -60,11 +67,18 @@ namespace WheelOfFortune.Wheel
             _zoneController.OnPlayerGaveUp -= HandleGiveUp;
             _zoneController.OnPlayerRevived -= HandleRevive;
             _zoneController.OnPlayerBombed -= HandleBombed;
+
+            _gameManager.OnStateChanged -= HandleStateChanged;
         }
 
         #if UNITY_EDITOR
         private void OnValidate()
         {
+            if (_gameManager == null)
+            {
+                _gameManager = FindObjectOfType<GameManager>(true);
+            }
+
             if (_spinButton == null)
             {
                 var t = transform.Find("ui_button_spin");
@@ -126,7 +140,7 @@ namespace WheelOfFortune.Wheel
 
             int count = _currentTier.SliceCount;
             bool includeBomb = _zoneController.CurrentZoneType.HasBomb();
-            _bombSliceIndex = includeBomb ? Random.Range(0, count) : -1;
+            _bombSliceIndex = includeBomb ? UnityEngine.Random.Range(0, count) : -1;
 
             float anglePerSlice = 360f / count;
 
@@ -164,7 +178,12 @@ namespace WheelOfFortune.Wheel
             return Mathf.Max(1, Mathf.RoundToInt(scaled));
         }
 
-        private void Spin()
+        private void OnSpinButtonClicked()
+        {
+            _gameManager.RequestSpin();
+        }
+
+        public void Spin()
         {
             if(_isSpinning)
                 return;
@@ -172,8 +191,9 @@ namespace WheelOfFortune.Wheel
             _isSpinning = true;
             _spinButton.interactable = false;
 
-            int selectedIndex = Random.Range(0, _currentTier.SliceCount);
+            OnSpinStarted?.Invoke();
 
+            int selectedIndex = UnityEngine.Random.Range(0, _currentTier.SliceCount);
             float anglePerSlice = 360f / _currentTier.SliceCount;
             float targetAngle = anglePerSlice * selectedIndex;
             float total = _currentTier.MinSpinRounds * 360f + targetAngle;
@@ -206,6 +226,8 @@ namespace WheelOfFortune.Wheel
             }
 
             _zoneController.Advance();
+
+            OnSpinResolved?.Invoke();
         }
 
         private void OnBombHit()
@@ -234,6 +256,11 @@ namespace WheelOfFortune.Wheel
         private void HandleRevive()
         {
             Debug.Log($"[Wheel] Revive triggered! Clearing rewards");
+        }
+
+        private void HandleStateChanged(GameState state)
+        {
+            _spinButton.interactable = state == GameState.ReadyToSpin;
         }
     }
 }
