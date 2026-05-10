@@ -44,12 +44,16 @@ namespace WheelOfFortune.UI
                 
             if(_itemTextAmount != null)
                 _itemTextAmount.text = $"{amount}";
+
+            this.PlayPopIn(duration: 0.3f);    
         }
 
         public void SetAmount(int amount)
         {
             if(_itemTextAmount != null)
                 _itemTextAmount.text = $"{amount}";
+            
+            this.PlayPulse(punchScale: 1.3f, duration: 0.25f);
         }
     }
 }

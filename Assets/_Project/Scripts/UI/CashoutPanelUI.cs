@@ -12,6 +12,7 @@ namespace WheelOfFortune.UI
         [SerializeField] private GameManager _gameManager;
         [SerializeField] private ZoneController _zoneController;
         [SerializeField] private GameObject _panel;
+        [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private Button _continueButton;
         [SerializeField] private TMP_Text _uiTextMessageValue;
 
@@ -41,15 +42,30 @@ namespace WheelOfFortune.UI
             if (_uiTextMessageValue != null)
                 _uiTextMessageValue.text = "REWARDS COLLECTED!";
 
-            _panel.SetActive(true);
+            ShowPanelAnimated();
         }
 
         private void OnContinueClicked()
         {
+            _continueButton.PlayPressFeedback();
+
             if (_gameManager.RequestContinue())
-                _panel.SetActive(false);
+                HidePanelAnimated();
         }
 
+        private void ShowPanelAnimated()
+        {
+            _panel.SetActive(true);
+            _canvasGroup.alpha = 0f;
+            _canvasGroup.PlayFade(1f);                          
+            _uiTextMessageValue.PlayPopIn(duration: 0.3f);        
+        }
+
+        private void HidePanelAnimated()
+        {
+            _canvasGroup.PlayFade(0f);                          
+            _uiTextMessageValue.PlayPopOut(duration: 0.2f, onComplete: () => _panel.SetActive(false));     
+        }
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -70,6 +86,9 @@ namespace WheelOfFortune.UI
                 var t = transform.Find("ui_panel_cashout_content");
                 if (t != null) _panel = t.gameObject;
             }
+
+            if (_canvasGroup == null && _panel != null)
+                _canvasGroup = _panel.GetComponent<CanvasGroup>();
 
             if (_uiTextMessageValue == null)
             {

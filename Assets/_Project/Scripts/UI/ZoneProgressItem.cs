@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,29 +24,6 @@ namespace WheelOfFortune.UI
         [SerializeField] private Sprite _currentSprite;       
         [SerializeField] private Sprite _safeSprite;          
         [SerializeField] private Sprite _superSprite;         
-
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_uiTextZoneNumberValue == null)
-            {
-                var t = transform.Find("ui_text_zone_number_value");
-                if (t != null) _uiTextZoneNumberValue = t.GetComponent<TMP_Text>();
-            }
-
-            if (_uiImageIndicatorValue == null)
-            {
-                var t = transform.Find("ui_image_indicator/ui_image_indicator_value");
-                if (t != null) _uiImageIndicatorValue = t.GetComponent<Image>();
-            }
-
-            if (_currentIndicator == null)
-            {
-                var t = transform.Find("ui_image_indicator");
-                if (t != null) _currentIndicator = t.gameObject;
-            }
-        }
-        #endif
 
         public void Bind(int zoneNumber, int currentZone, ZoneType zoneType)
         {
@@ -120,7 +98,35 @@ namespace WheelOfFortune.UI
                 }
             }
 
+            if (isCurrent)
+            {
+                this.PlayPopIn(duration: 0.3f, ease: Ease.OutBack);  
+            }
+            
             _uiTextZoneNumberValue.color = textColor;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_uiTextZoneNumberValue == null)
+            {
+                var t = transform.Find("ui_text_zone_number_value");
+                if (t != null) _uiTextZoneNumberValue = t.GetComponent<TMP_Text>();
+            }
+
+            if (_uiImageIndicatorValue == null)
+            {
+                var t = transform.Find("ui_image_indicator/ui_image_indicator_value");
+                if (t != null) _uiImageIndicatorValue = t.GetComponent<Image>();
+            }
+
+            if (_currentIndicator == null)
+            {
+                var t = transform.Find("ui_image_indicator");
+                if (t != null) _currentIndicator = t.gameObject;
+            }
+        }
+#endif
     }
 }

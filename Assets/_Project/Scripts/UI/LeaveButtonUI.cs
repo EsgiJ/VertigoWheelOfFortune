@@ -64,10 +64,8 @@ namespace WheelOfFortune.UI
 
         private void OnLeaveButtonClicked()
         {
-            if (!_zoneController.CurrentZoneType.AllowsLeaving()) 
-                return;
-
-            _zoneController.Cashout();
+            _button.PlayPressFeedback();                        
+            _gameManager.RequestLeave();
         }
 
 #if UNITY_EDITOR

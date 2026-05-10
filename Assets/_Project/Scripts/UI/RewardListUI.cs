@@ -7,7 +7,7 @@ namespace WheelOfFortune.UI
 {
     public class RewardListUI : MonoBehaviour
     {
-        [Header("Reeferences")]
+        [Header("References")]
         [SerializeField] private RewardBag _rewardBag;
         [SerializeField] private RectTransform _uiAnchorItemsRoot;
         [SerializeField] private RewardItemView _itemPrefab;
@@ -25,17 +25,6 @@ namespace WheelOfFortune.UI
             _rewardBag.OnRewardAdded -= HandleRewardAdded;
             _rewardBag.OnCleared -= HandleCleared;
         }
-
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_uiAnchorItemsRoot == null)
-            {
-                var t = transform.Find("ui_anchor_items_root");
-                if (t != null) _uiAnchorItemsRoot = t as RectTransform;
-            }
-        }
-        #endif
 
         private void HandleRewardAdded(CollectedReward reward)
         {
@@ -70,5 +59,16 @@ namespace WheelOfFortune.UI
                     Destroy(_uiAnchorItemsRoot.GetChild(i).gameObject);
             }
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_uiAnchorItemsRoot == null)
+            {
+                var t = transform.Find("ui_anchor_items_root");
+                if (t != null) _uiAnchorItemsRoot = t as RectTransform;
+            }
+        }
+#endif
     }
 }

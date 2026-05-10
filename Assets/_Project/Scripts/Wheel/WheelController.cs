@@ -8,6 +8,8 @@ using System;
 using WheelOfFortune.Reward;
 using WheelOfFortune.Zone;
 using WheelOfFortune.Core;
+using WheelOfFortune.UI;
+
 namespace WheelOfFortune.Wheel
 {
     public class WheelController : MonoBehaviour
@@ -70,40 +72,6 @@ namespace WheelOfFortune.Wheel
 
             _gameManager.OnStateChanged -= HandleStateChanged;
         }
-
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_gameManager == null)
-            {
-                _gameManager = FindObjectOfType<GameManager>(true);
-            }
-
-            if (_spinButton == null)
-            {
-                var t = transform.Find("ui_button_spin");
-                if (t != null) _spinButton = t.GetComponent<Button>();
-            }
-
-            if (_wheelAnchorRotor == null)
-            {
-                var t = transform.Find("ui_anchor_rotor");
-                if (t != null) _wheelAnchorRotor = t as RectTransform;
-            }
-
-            if (_wheelBaseImage == null)
-            {
-                var t = transform.Find("ui_anchor_rotor/ui_image_wheel_base");
-                if (t != null) _wheelBaseImage = t.GetComponent<Image>();
-            }
-
-            if (_wheelIndicatorImage == null)
-            {
-                var t = transform.Find("ui_image_wheel_indicator");
-                if (t != null) _wheelIndicatorImage = t.GetComponent<Image>();
-            }
-        }
-        #endif
 
         private void HandleZoneChanged(int zone, ZoneType type)
         {
@@ -188,6 +156,8 @@ namespace WheelOfFortune.Wheel
             if(_isSpinning)
                 return;
 
+            _spinButton.PlayPressFeedback();
+
             _isSpinning = true;
             _spinButton.interactable = false;
 
@@ -262,5 +232,39 @@ namespace WheelOfFortune.Wheel
         {
             _spinButton.interactable = state == GameState.ReadyToSpin;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_gameManager == null)
+            {
+                _gameManager = FindObjectOfType<GameManager>(true);
+            }
+
+            if (_spinButton == null)
+            {
+                var t = transform.Find("ui_button_spin");
+                if (t != null) _spinButton = t.GetComponent<Button>();
+            }
+
+            if (_wheelAnchorRotor == null)
+            {
+                var t = transform.Find("ui_anchor_rotor");
+                if (t != null) _wheelAnchorRotor = t as RectTransform;
+            }
+
+            if (_wheelBaseImage == null)
+            {
+                var t = transform.Find("ui_anchor_rotor/ui_image_wheel_base");
+                if (t != null) _wheelBaseImage = t.GetComponent<Image>();
+            }
+
+            if (_wheelIndicatorImage == null)
+            {
+                var t = transform.Find("ui_image_wheel_indicator");
+                if (t != null) _wheelIndicatorImage = t.GetComponent<Image>();
+            }
+        }
+#endif
     }
 }
