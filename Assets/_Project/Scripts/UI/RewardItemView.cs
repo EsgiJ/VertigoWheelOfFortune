@@ -26,13 +26,13 @@ namespace WheelOfFortune.UI
             }
                 
             if(_itemTextAmount != null)
-                _itemTextAmount.text = $"x{amount}";
+                _itemTextAmount.text = $"{amount}";
         }
 
         public void SetAmount(int amount)
         {
             if(_itemTextAmount != null)
-                _itemTextAmount.text = $"x{amount}";
+                _itemTextAmount.text = $"{amount}";
         }
     }
 }
