@@ -1,13 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+using WheelOfFortune.Core;
 
 namespace WheelOfFortune.Currency
 {   
     public class CurrencyController : MonoBehaviour
     {
-        [SerializeField, Min(0)] private int _startingCurrency = 100;
+        [Header("Config")]
+        [SerializeField] private GameConfig _gameConfig;
 
         public int Gold { get; private set; }   
 
@@ -15,7 +16,7 @@ namespace WheelOfFortune.Currency
 
         private void Awake()
         {
-            Gold = _startingCurrency;
+            Gold = _gameConfig.StartingGold;
         }
 
         private void Start()
@@ -45,5 +46,20 @@ namespace WheelOfFortune.Currency
             Gold += amount;
             OnCurrencyChanged?.Invoke(Gold);
         }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (_gameConfig == null)
+        {
+            var guids = UnityEditor.AssetDatabase.FindAssets("t:GameConfig");
+            if (guids.Length > 0)
+            {
+                string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
+                _gameConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<GameConfig>(path);
+            }
+        }
+    }
+#endif
     }
 }

@@ -2,6 +2,8 @@ using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+
+using WheelOfFortune.Core;
 using WheelOfFortune.Zone;
 
 namespace WheelOfFortune.UI
@@ -13,12 +15,8 @@ namespace WheelOfFortune.UI
         [SerializeField] private GameObject _currentIndicator;
         [SerializeField] private Image _uiImageIndicatorValue;
 
-        [Header("Colors")]
-        [SerializeField] private Color _pastColor = Color.grey;
-        [SerializeField] private Color _futureColor = Color.black;
-        [SerializeField] private Color _currentColor = Color.white;
-        [SerializeField] private Color _safeColor = Color.green;
-        [SerializeField] private Color _superColor = new Color(1f, 0.85f, 0.3f);
+        [Header("Config")]
+        [SerializeField] private GameConfig _gameConfig;
 
         [Header("Sprites by Current State")]
         [SerializeField] private Sprite _currentSprite;       
@@ -76,24 +74,24 @@ namespace WheelOfFortune.UI
 
             if (isPast)
             {
-                textColor = _pastColor;
+                textColor = _gameConfig.PastZoneColor;
             }
             else if (isCurrent)
             {
-                textColor = _currentColor;
+                textColor = _gameConfig.CurrentZoneColor;
             }
             else
             {
                 switch (zoneType)
                 {
                     case ZoneType.Super:
-                        textColor = _superColor;
+                        textColor = _gameConfig.FutureSuperZoneColor;
                         break;
                     case ZoneType.Safe:
-                        textColor = _safeColor;
+                        textColor = _gameConfig.FutureSafeZoneColor;
                         break;
                     default:
-                        textColor = _futureColor;
+                        textColor = _gameConfig.FutureNormalZoneColor;
                         break;
                 }
             }
@@ -125,6 +123,16 @@ namespace WheelOfFortune.UI
             {
                 var t = transform.Find("ui_image_indicator");
                 if (t != null) _currentIndicator = t.gameObject;
+            }
+
+            if (_gameConfig == null)
+            {
+                var guids = UnityEditor.AssetDatabase.FindAssets("t:GameConfig");
+                if (guids.Length > 0)
+                {
+                    string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
+                    _gameConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<GameConfig>(path);
+                }
             }
         }
 #endif

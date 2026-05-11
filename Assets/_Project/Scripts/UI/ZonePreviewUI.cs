@@ -2,15 +2,17 @@ using TMPro;
 using UnityEngine;
 
 using WheelOfFortune.Zone;
+using WheelOfFortune.Core;
 
 public class ZonePreviewUI : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private TMP_Text _uiTextSuperValue;     
     [SerializeField] private TMP_Text _uiTextSafeValue;      
     [SerializeField] private ZoneController _zoneController;
-    [SerializeField] private int _superInterval = 30;
-    [SerializeField] private int _safeInterval = 5;
 
+    [Header("Config")]
+    [SerializeField] private GameConfig _gameConfig;
     private void OnEnable()
     {
         _zoneController.OnZoneChanged += HandleZoneChanged;
@@ -21,7 +23,16 @@ public class ZonePreviewUI : MonoBehaviour
         _zoneController.OnZoneChanged -= HandleZoneChanged;
     }
 
-    #if UNITY_EDITOR
+    private void HandleZoneChanged(int currentZone, ZoneType _)
+    {
+        int nextSuper = _gameConfig.GetNextSuperZone(currentZone);
+        int nextSafe  = _gameConfig.GetNextSafeZone(currentZone);
+
+        _uiTextSuperValue.text = $"SUPER ZONE {nextSuper}";
+        _uiTextSafeValue.text  = $"SAFE ZONE {nextSafe}";
+    }
+
+#if UNITY_EDITOR
     private void OnValidate()
     {
         if (_uiTextSuperValue == null)
@@ -35,21 +46,16 @@ public class ZonePreviewUI : MonoBehaviour
             var t = transform.Find("ui_panel_zone_preview_safe/ui_text_zone_label_value");
             if (t != null) _uiTextSafeValue = t.GetComponent<TMP_Text>();
         }
-    }
-    #endif
 
-    private void HandleZoneChanged(int currentZone, ZoneType _)
-    {
-        int nextSuper = NextMultipleOf(currentZone, _superInterval);
-        int nextSafe  = NextMultipleOf(currentZone, _safeInterval);
-
-        _uiTextSuperValue.text = $"SUPER ZONE {nextSuper}";
-        _uiTextSafeValue.text  = $"SAFE ZONE {nextSafe}";
+        if (_gameConfig == null)
+        {
+            var guids = UnityEditor.AssetDatabase.FindAssets("t:GameConfig");
+            if (guids.Length > 0)
+            {
+                string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
+                _gameConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<GameConfig>(path);
+            }
+        }
     }
-
-    private static int NextMultipleOf(int from, int step)
-    {
-        int remainder = from % step;
-        return from - remainder + step;
-    }
+#endif
 }

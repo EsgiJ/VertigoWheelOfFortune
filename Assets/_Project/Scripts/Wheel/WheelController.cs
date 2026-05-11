@@ -26,9 +26,9 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private ZoneController _zoneController;
         
         [Header("Config")]
+        [SerializeField] private GameConfig _gameConfig;
         [SerializeField] private ZoneTierResolver _tierResolver;
         [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
-        [SerializeField, Min(0f)] private float _rewardGrowthPerZone = 0.5f;
 
         [Header("Bomb")]
         [SerializeField] private Sprite _bombSprite;
@@ -134,19 +134,12 @@ namespace WheelOfFortune.Wheel
                 else
                 {
                     RewardData reward = _currentTier.SliceRewards[i];
-                    int amount = ScaleAmountForZone(reward != null ? reward.BaseAmount : 0, _zoneController.CurrentZone);
+                    int amount = _gameConfig.ScaleRewardAmount(reward != null ? reward.BaseAmount : 0, _zoneController.CurrentZone);
                     slice.Initialize(i, reward, amount, _currentTier.SliceTextColor);
                 }
 
                 _slices.Add(slice);
             }
-        }
-        
-        private int ScaleAmountForZone(int baseAmount, int zone)
-        {
-            int z = Mathf.Max(1, zone);
-            float scaled = baseAmount * (1f + _rewardGrowthPerZone * (z - 1));
-            return Mathf.Max(1, Mathf.RoundToInt(scaled));
         }
 
         private void OnSpinButtonClicked()
@@ -266,6 +259,32 @@ namespace WheelOfFortune.Wheel
             {
                 var t = transform.Find("ui_image_wheel_indicator");
                 if (t != null) _wheelIndicatorImage = t.GetComponent<Image>();
+            }
+
+            if (_spinLabelText == null)
+            {
+                var t = transform.Find("ui_button_spin/ui_text_spin_label");
+                if (t != null) _spinLabelText = t.GetComponent<TMP_Text>();
+            }
+
+            if (_rewardBag == null)
+            {
+                _rewardBag = FindObjectOfType<RewardBag>(true);
+            }
+
+            if (_zoneController == null)
+            {
+                _zoneController = FindObjectOfType<ZoneController>(true);
+            }
+            
+            if (_gameConfig == null)
+            {
+                var guids = UnityEditor.AssetDatabase.FindAssets("t:GameConfig");
+                if (guids.Length > 0)
+                {
+                    string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
+                    _gameConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<GameConfig>(path);
+                }
             }
         }
 #endif

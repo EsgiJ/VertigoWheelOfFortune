@@ -24,7 +24,8 @@ namespace WheelOfFortune.UI
         [SerializeField] private ZoneController _zoneController;
         [SerializeField] private CurrencyController _currencyController;
 
-        [SerializeField, Min(0)] private int _reviveCost = 25;
+        [Header("Config")]
+        [SerializeField] private GameConfig _gameConfig;
 
         private Tween _glowTween;
         
@@ -70,9 +71,9 @@ namespace WheelOfFortune.UI
         private void UpdateReviveButtonState()
         {
             if (_uiTextReviveCostValue != null)
-                _uiTextReviveCostValue.text = _reviveCost.ToString();
+                _uiTextReviveCostValue.text = _gameConfig.ReviveCost.ToString();
 
-            _reviveButton.interactable = _currencyController.CanAfford(_reviveCost);
+            _reviveButton.interactable = _currencyController.CanAfford(_gameConfig.ReviveCost);
         }
 
         private void OnGiveUpClicked()
@@ -87,13 +88,13 @@ namespace WheelOfFortune.UI
         {
             _reviveButton.PlayPressFeedback();
 
-            if (!_currencyController.CanAfford(_reviveCost))
+            if (!_currencyController.CanAfford(_gameConfig.ReviveCost))
                 return;
 
             if (!_gameManager.RequestRevive())
                 return;
 
-            _currencyController.TrySpend(_reviveCost);
+            _currencyController.TrySpend(_gameConfig.ReviveCost);
             HidePanelAnimated();
         }
 
@@ -192,6 +193,16 @@ namespace WheelOfFortune.UI
             {
                 var t = transform.Find("ui_panel_bomb_content");
                 if (t != null) _panel = t.gameObject;
+            }
+
+            if (_gameConfig == null)
+            {
+                var guids = UnityEditor.AssetDatabase.FindAssets("t:GameConfig");
+                if (guids.Length > 0)
+                {
+                    string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
+                    _gameConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<GameConfig>(path);
+                }
             }
         }
 #endif        

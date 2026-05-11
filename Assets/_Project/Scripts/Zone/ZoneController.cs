@@ -1,17 +1,14 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+using WheelOfFortune.Core;
 namespace WheelOfFortune.Zone
 {
     public class ZoneController : MonoBehaviour
     {   
         [Header("Config")]
-        [SerializeField, Min(1)] private int _startingZone = 1;
-        [SerializeField, Min(1)] private int _safeZoneInterval = 5;
-        [SerializeField, Min(1)] private int _superZoneInterval = 30;
-
+        [SerializeField] private GameConfig _gameConfig;
+        
         public int CurrentZone { get; private set; }
         public ZoneType CurrentZoneType => GetZoneType(CurrentZone);
 
@@ -23,7 +20,7 @@ namespace WheelOfFortune.Zone
 
         private void Awake()
         {
-            CurrentZone = _startingZone;
+            CurrentZone = _gameConfig.StartingZone;
         }
 
         private void Start()
@@ -39,14 +36,14 @@ namespace WheelOfFortune.Zone
 
         public void ResetToStart()
         {
-            CurrentZone = _startingZone;
+            CurrentZone = _gameConfig.StartingZone;
             OnZoneChanged?.Invoke(CurrentZone, CurrentZoneType);
         }
 
         private ZoneType GetZoneType(int zone)
         {
-            if (zone % _superZoneInterval == 0) return ZoneType.Super;
-            if (zone % _safeZoneInterval == 0)  return ZoneType.Safe;
+            if (zone % _gameConfig.SuperZoneInterval == 0) return ZoneType.Super;
+            if (zone % _gameConfig.SafeZoneInterval == 0)  return ZoneType.Safe;
             return ZoneType.Normal;
         }
 
@@ -72,5 +69,20 @@ namespace WheelOfFortune.Zone
             OnPlayerRevived?.Invoke();  
             Advance();
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_gameConfig == null)
+            {
+                var guids = UnityEditor.AssetDatabase.FindAssets("t:GameConfig");
+                if (guids.Length > 0)
+                {
+                    string path = UnityEditor.AssetDatabase.GUIDToAssetPath(guids[0]);
+                    _gameConfig = UnityEditor.AssetDatabase.LoadAssetAtPath<GameConfig>(path);
+                }
+            }
+        }
+#endif
     }
 }
