@@ -107,7 +107,7 @@ namespace WheelOfFortune.UI
             //_dialogTransform.PlayPopIn(duration: 0.3f);
             
             _bombCardTransform.PlayPopIn(duration: 0.4f);
-            
+
             _uiTextMessageValue.transform.localScale = Vector3.one;
             _uiSubtextMessageValue.transform.localScale = Vector3.one;
 
@@ -177,19 +177,19 @@ namespace WheelOfFortune.UI
 
             if (_giveUpButton == null)
             {
-                var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_giveup");
+                var t = transform.Find("ui_panel_bomb_content/ui_button_giveup");
                 if (t != null) _giveUpButton = t.GetComponent<Button>();
             }
 
             if (_reviveButton == null)
             {
-                var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive");
+                var t = transform.Find("ui_panel_bomb_content/ui_button_revive");
                 if (t != null) _reviveButton = t.GetComponent<Button>();
             }
 
             if (_uiTextReviveCostValue == null)
             {
-                var t = transform.Find("ui_panel_bomb_content/ui_panel_bomb_dialog/ui_button_revive/ui_text_revive_cost_value");
+                var t = transform.Find("ui_panel_bomb_content/ui_button_revive/ui_text_revive_cost_value");
                 if (t != null) _uiTextReviveCostValue = t.GetComponent<TMP_Text>();
             }
 
