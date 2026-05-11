@@ -22,7 +22,7 @@ namespace WheelOfFortune.UI
         {
             _gameManager.OnStateChanged += HandleStateChanged;
             _zoneController.OnZoneChanged += HandleZoneChanged;
-            UpdateVisibility(_zoneController.CurrentZoneType);
+            UpdateVisibility();
         }
 
         private void OnDisable()
@@ -43,18 +43,10 @@ namespace WheelOfFortune.UI
 
         private void HandleZoneChanged(int zone, ZoneType type)
         {
-            UpdateVisibility(type);
+            UpdateVisibility();
         }
 
         private void UpdateVisibility()
-        {
-            bool canLeave = _gameManager.CurrentState == GameState.ReadyToSpin
-                        && _zoneController.CurrentZoneType.AllowsLeaving();
-
-            _button.interactable = canLeave;
-        }
-
-        private void UpdateVisibility(ZoneType type)
         {
             bool canLeave = _gameManager.CurrentState == GameState.ReadyToSpin
                         && _zoneController.CurrentZoneType.AllowsLeaving();
