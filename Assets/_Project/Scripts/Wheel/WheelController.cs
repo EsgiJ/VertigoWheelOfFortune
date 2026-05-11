@@ -131,8 +131,12 @@ namespace WheelOfFortune.Wheel
                 }
                 else
                 {
+                    // Do not scale if the reward is not stackable
                     RewardData reward = _currentTier.SliceRewards[i];
-                    int amount = _gameConfig.ScaleRewardAmount(reward != null ? reward.BaseAmount : 0, _zoneController.CurrentZone);
+                    int baseAmount = reward != null ? reward.BaseAmount : 0;
+                    int amount = reward != null && !reward.IsStackable
+                        ? Mathf.Max(1, baseAmount)
+                        : _gameConfig.ScaleRewardAmount(baseAmount, _zoneController.CurrentZone);
                     slice.Initialize(i, reward, amount, _currentTier.SliceTextColor);
                 }
 
