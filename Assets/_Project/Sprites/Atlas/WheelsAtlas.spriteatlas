@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WheelsAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 0
+      enableTightPacking: 0
+      enableAlphaDilation: 0
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 102900000, guid: 2e4fc3451119b564e9f08b17d111d71e, type: 3}
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 2528496851094761378, guid: 86a34c624d3c50b4ea54934942e532cc, type: 3}
+  - {fileID: -7416167051008218582, guid: abf1e9f32bbeb1741badb5601b2893ea, type: 3}
+  - {fileID: 8294000708589155680, guid: 45683c0509c9c56438959ac1d7add666, type: 3}
+  - {fileID: 5770997025872212153, guid: 39e28c8536e6fa54392adc5e2544e5a2, type: 3}
+  - {fileID: 5759410588988491854, guid: 528f2d494f64e45418fe4ca5e1d50b3d, type: 3}
+  - {fileID: -4250264824657568362, guid: e87b21eae4903b04888538ea86d70b22, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ui_spin_silver_indicator_0
+  - ui_spin_bronze_base_0
+  - ui_spin_golden_indicator_0
+  - ui_spin_golden_base_0
+  - ui_spin_bronze_indicator_0
+  - ui_spin_silver_base_0
+  m_RenderDataMap: {}
+  m_Tag: WheelsAtlas
+  m_IsVariant: 0
