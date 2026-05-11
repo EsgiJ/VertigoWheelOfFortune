@@ -54,7 +54,7 @@ namespace WheelOfFortune.UI
                     Destroy(view .gameObject);
                 }
 
-                // have to destroy non-stackable views manually
+                // Have to destroy non-stackable views manually
                 for (int i = _uiAnchorItemsRoot.childCount - 1; i >= 0; i--)
                     Destroy(_uiAnchorItemsRoot.GetChild(i).gameObject);
             }
