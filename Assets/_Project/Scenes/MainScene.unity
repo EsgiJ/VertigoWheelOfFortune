@@ -1110,6 +1110,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3290025160989246654, guid: 1227962630268cf4e9530852195c5004, type: 3}
+      propertyPath: m_Name
+      value: ui_text_leave_label
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1227962630268cf4e9530852195c5004, type: 3}
 --- !u!1001 &4273925324090037085
@@ -1239,6 +1243,10 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4273925325275299077, guid: 6b1e1e0a219184c49a2da07541b60a51, type: 3}
+      propertyPath: m_Name
+      value: ui_text_giveup_label
+      objectReference: {fileID: 0}
     - target: {fileID: 4273925325296138132, guid: 6b1e1e0a219184c49a2da07541b60a51, type: 3}
       propertyPath: _zoneController
       value: 
@@ -1334,6 +1342,10 @@ PrefabInstance:
     - target: {fileID: 4273925325296138138, guid: 6b1e1e0a219184c49a2da07541b60a51, type: 3}
       propertyPath: m_Name
       value: ui_panel_bomb
+      objectReference: {fileID: 0}
+    - target: {fileID: 4273925325554697550, guid: 6b1e1e0a219184c49a2da07541b60a51, type: 3}
+      propertyPath: m_Name
+      value: ui_text_revive_label
       objectReference: {fileID: 0}
     - target: {fileID: 7643401704704096968, guid: 6b1e1e0a219184c49a2da07541b60a51, type: 3}
       propertyPath: m_AnchorMax.x
