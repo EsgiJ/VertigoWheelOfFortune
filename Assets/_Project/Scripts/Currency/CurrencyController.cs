@@ -47,6 +47,11 @@ namespace WheelOfFortune.Currency
             OnCurrencyChanged?.Invoke(Gold);
         }
 
+        public void SetCurrency(int amount)
+        {
+            Gold = Mathf.Max(0, amount);
+            OnCurrencyChanged?.Invoke(Gold);
+        }
 #if UNITY_EDITOR
     private void OnValidate()
     {

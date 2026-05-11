@@ -119,7 +119,7 @@ namespace WheelOfFortune.Core
             GameState previous = CurrentState;
             CurrentState = next;
 
-            Debug.Log($"[GameManager] State: {previous} → {next}");
+            UnityEngine.Debug.Log($"[GameManager] State: {previous} -> {next}");
             OnStateChanged?.Invoke(next);
         }
 

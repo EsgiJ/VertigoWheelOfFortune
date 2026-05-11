@@ -184,7 +184,7 @@ namespace WheelOfFortune.Wheel
                 return;
             }
 
-            Debug.Log($"[Wheel] Selected slice {selectedIndex} - icon: {slice.Reward?.DisplayName} x{slice.Amount}");
+            UnityEngine.Debug.Log($"[Wheel] Selected slice {selectedIndex} - icon: {slice.Reward?.DisplayName} x{slice.Amount}");
             
             if(slice != null && slice.Amount > 0)
             {
@@ -198,7 +198,7 @@ namespace WheelOfFortune.Wheel
 
         private void OnBombHit()
         {
-            Debug.Log($"[Wheel] Bomb hit! Clearing rewards");
+            UnityEngine.Debug.Log($"[Wheel] Bomb hit! Clearing rewards");
             _zoneController.Bomb(); 
         }
 
@@ -209,19 +209,19 @@ namespace WheelOfFortune.Wheel
 
         private void HandleCashout()
         {
-            Debug.Log($"[Wheel] Cashout triggered! Clearing rewards");
+            UnityEngine.Debug.Log($"[Wheel] Cashout triggered! Clearing rewards");
             _rewardBag.ClearRewards();
         }
 
         private void HandleGiveUp()
         {
-            Debug.Log($"[Wheel] Give Up triggered! Clearing rewards");
+            UnityEngine.Debug.Log($"[Wheel] Give Up triggered! Clearing rewards");
             _rewardBag.ClearRewards();
         }
 
         private void HandleRevive()
         {
-            Debug.Log($"[Wheel] Revive triggered! Clearing rewards");
+            UnityEngine.Debug.Log($"[Wheel] Revive triggered! Clearing rewards");
         }
 
         private void HandleStateChanged(GameState state)

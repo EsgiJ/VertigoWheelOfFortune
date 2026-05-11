@@ -70,6 +70,11 @@ namespace WheelOfFortune.Zone
             Advance();
         }
 
+        public void JumpToZone(int zoneNumber)
+        {
+            CurrentZone = Mathf.Max(1, zoneNumber);
+            OnZoneChanged?.Invoke(CurrentZone, CurrentZoneType);
+        }
 #if UNITY_EDITOR
         private void OnValidate()
         {

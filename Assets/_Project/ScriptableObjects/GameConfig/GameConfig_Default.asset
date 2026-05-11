@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _safeZoneInterval: 5
   _superZoneInterval: 30
-  _startingZone: 29
+  _startingZone: 1
   _rewardGrowthPerZone: 0.5
   _startingGold: 100
   _reviveCost: 25
