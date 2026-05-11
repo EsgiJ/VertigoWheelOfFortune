@@ -35,7 +35,7 @@ namespace WheelOfFortune.UI
             _uiTextSafeValue.text  = $"SAFE ZONE {nextSafe}";
         }
 
-    #if UNITY_EDITOR
+#if UNITY_EDITOR
         private void OnValidate()
         {
             if (_uiTextSuperValue == null)
@@ -60,6 +60,6 @@ namespace WheelOfFortune.UI
                 }
             }
         }
-    #endif
+#endif
     }
 }
