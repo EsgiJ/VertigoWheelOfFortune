@@ -60,7 +60,7 @@ namespace WheelOfFortune.Wheel
 
         void OnDestroy()
         {
-            _spinButton.onClick.RemoveListener(Spin);
+            _spinButton.onClick.RemoveListener(OnSpinButtonClicked);
 
             _zoneController.OnZoneChanged -= HandleZoneChanged;
             _zoneController.OnPlayerCashedOut -= HandleCashout;
