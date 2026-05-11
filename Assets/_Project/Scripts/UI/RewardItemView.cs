@@ -15,23 +15,6 @@ namespace WheelOfFortune.UI
 
         public RewardData Reward { get; private set; }
 
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_itemImage == null)
-            {
-                var t = transform.Find("ui_image_icon_value");
-                if (t != null) _itemImage = t.GetComponent<Image>();
-            }
-
-            if (_itemTextAmount == null)
-            {
-                var t = transform.Find("ui_text_amount_value");
-                if (t != null) _itemTextAmount = t.GetComponent<TMP_Text>();
-            }
-        }
-        #endif
-
         public void Bind(RewardData reward, int amount)
         {
             Reward = reward;
@@ -55,5 +38,22 @@ namespace WheelOfFortune.UI
             
             this.PlayPulse(punchScale: 1.3f, duration: 0.25f);
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_itemImage == null)
+            {
+                var t = transform.Find("ui_image_icon_value");
+                if (t != null) _itemImage = t.GetComponent<Image>();
+            }
+
+            if (_itemTextAmount == null)
+            {
+                var t = transform.Find("ui_text_amount_value");
+                if (t != null) _itemTextAmount = t.GetComponent<TMP_Text>();
+            }
+        }
+#endif
     }
 }

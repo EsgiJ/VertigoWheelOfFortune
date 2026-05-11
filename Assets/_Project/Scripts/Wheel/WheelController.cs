@@ -24,14 +24,12 @@ namespace WheelOfFortune.Wheel
         [SerializeField] private TMP_Text _spinLabelText;           
         [SerializeField] private RewardBag _rewardBag;
         [SerializeField] private ZoneController _zoneController;
+        [SerializeField] private Sprite _bombSprite;
         
         [Header("Config")]
         [SerializeField] private GameConfig _gameConfig;
         [SerializeField] private ZoneTierResolver _tierResolver;
-        [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position
-
-        [Header("Bomb")]
-        [SerializeField] private Sprite _bombSprite;
+        [SerializeField] private float _sliceRadius = 140f; // Distance from center to slice position        
 
         private List<WheelSlice> _slices = new List<WheelSlice>();
         private bool _isSpinning = false;

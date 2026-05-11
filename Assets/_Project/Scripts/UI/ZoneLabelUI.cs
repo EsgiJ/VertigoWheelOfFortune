@@ -21,14 +21,6 @@ namespace WheelOfFortune.UI
             _zoneController.OnZoneChanged -= HandleZoneChanged;
         }
 
-        #if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (_uiTextZoneValue == null)
-                _uiTextZoneValue = GetComponent<TMP_Text>();
-        }
-        #endif
-
         private void HandleZoneChanged(int newZone, ZoneType newZoneType)
         {
             if(_uiTextZoneValue == null)
@@ -44,5 +36,13 @@ namespace WheelOfFortune.UI
 
             _uiTextZoneValue.text = label;
         }
+
+#if UNITY_EDITOR
+        private void OnValidate()
+        {
+            if (_uiTextZoneValue == null)
+                _uiTextZoneValue = GetComponent<TMP_Text>();
+        }
+#endif
     }
 }

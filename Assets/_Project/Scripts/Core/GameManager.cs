@@ -8,7 +8,7 @@ namespace WheelOfFortune.Core
 {
     public class GameManager : MonoBehaviour
     {
-        [Header("System References")]
+        [Header("References")]
         [SerializeField] private WheelController _wheelController;
         [SerializeField] private ZoneController _zoneController;
         [SerializeField] private RewardBag _rewardBag;

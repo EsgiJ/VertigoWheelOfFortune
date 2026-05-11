@@ -13,6 +13,7 @@ public class ZonePreviewUI : MonoBehaviour
 
     [Header("Config")]
     [SerializeField] private GameConfig _gameConfig;
+    
     private void OnEnable()
     {
         _zoneController.OnZoneChanged += HandleZoneChanged;

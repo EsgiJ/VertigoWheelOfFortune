@@ -1,4 +1,5 @@
 using UnityEngine;
+
 using WheelOfFortune.Currency;
 using WheelOfFortune.Reward;
 using WheelOfFortune.Zone;
@@ -7,6 +8,7 @@ namespace WheelOfFortune.Debug
 {
     public class DebugPanel : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private ZoneController _zoneController;
         [SerializeField] private CurrencyController _currencyController;
         [SerializeField] private RewardBag _rewardBag;

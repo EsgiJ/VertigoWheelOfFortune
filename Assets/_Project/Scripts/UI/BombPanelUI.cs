@@ -132,6 +132,7 @@ namespace WheelOfFortune.UI
                 .SetLoops(-1)
                 .SetEase(Ease.Linear);
         }
+        
 #if UNITY_EDITOR
         private void OnValidate()
         {
