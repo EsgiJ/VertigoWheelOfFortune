@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Reward_MleTier2
   m_EditorClassIdentifier: 
   _displayName: Tier 2 MLE
-  _icon: {fileID: 4658459910315597717, guid: 1ad256479ce65d8438939b0d9222abd4, type: 3}
   _baseAmount: 1
-  _isStackable: 1
+  _isStackable: 0
+  _icon: {fileID: 4658459910315597717, guid: 1ad256479ce65d8438939b0d9222abd4, type: 3}
