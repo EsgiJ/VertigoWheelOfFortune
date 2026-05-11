@@ -15,7 +15,7 @@ MonoBehaviour:
   _displayLabel: BRONZE SPIN
   _wheelBaseSprite: {fileID: -7416167051008218582, guid: abf1e9f32bbeb1741badb5601b2893ea, type: 3}
   _wheelIndicatorSprite: {fileID: 5759410588988491854, guid: 528f2d494f64e45418fe4ca5e1d50b3d, type: 3}
-  _sliceTextColor: {r: 1, g: 1, b: 1, a: 1}
+  _sliceTextColor: {r: 0.80784315, g: 0.5372549, b: 0.27450982, a: 1}
   _sliceRewards:
   - {fileID: 11400000, guid: 5d51b8e03033fa7408bdd9113708fd66, type: 2}
   - {fileID: 11400000, guid: c273c556042d7c9499771d0261bc086d, type: 2}

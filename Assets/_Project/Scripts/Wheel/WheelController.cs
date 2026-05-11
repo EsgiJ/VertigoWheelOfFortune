@@ -92,7 +92,10 @@ namespace WheelOfFortune.Wheel
                 _wheelIndicatorImage.sprite = tier.WheelIndicatorSprite;
 
             if (_spinLabelText != null)
+            {
                 _spinLabelText.text = tier.DisplayLabel;
+                _spinLabelText.color = tier.SliceTextColor;
+            }
         }
 
         private void BuildSlices()
