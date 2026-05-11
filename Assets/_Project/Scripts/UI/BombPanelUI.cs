@@ -108,6 +108,9 @@ namespace WheelOfFortune.UI
             
             _bombCardTransform.PlayPopIn(duration: 0.4f);
             
+            _uiTextMessageValue.transform.localScale = Vector3.one;
+            _uiSubtextMessageValue.transform.localScale = Vector3.one;
+
             _uiTextMessageValue.PlayShake(duration: 0.5f, strength: 12f);
             _uiSubtextMessageValue.PlayShake(duration: 0.3f, strength: 8f);
             StartGlow();

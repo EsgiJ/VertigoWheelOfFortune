@@ -76,6 +76,7 @@ namespace WheelOfFortune.UI
 
             var t = target.transform;
             t.DOKill();
+            t.localScale = Vector3.one;
             return t.DOShakePosition(duration, strength, 25, 90, false, true)
                     .SetLink(target.gameObject)
                     .SetUpdate(true);
