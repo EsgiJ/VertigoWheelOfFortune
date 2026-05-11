@@ -1855,7 +1855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9154654397402211695, guid: 14ace9e8afb848946846eb4845b02eb5, type: 3}
       propertyPath: m_Name
-      value: Wheel
+      value: wheel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 14ace9e8afb848946846eb4845b02eb5, type: 3}
